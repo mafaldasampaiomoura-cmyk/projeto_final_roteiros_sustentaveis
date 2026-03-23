@@ -19,7 +19,7 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "types": ["node"],
+    "types": [],
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
@@ -43,6 +43,7 @@
     // "noPropertyAccessFromIndexSignature": true,
 
     // Recommended Options
+    "jsx": "react-jsx",
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
