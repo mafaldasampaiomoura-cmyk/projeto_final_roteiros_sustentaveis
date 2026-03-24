@@ -71,3 +71,10 @@ export const login = async (req: Request, res: Response) => {
     user: data.user,
   });
 };
+
+export const me = async (_req: Request, res: Response) => {
+  return res.status(200).json({
+    message: 'Authenticated user',
+    user: res.locals.user,
+  });
+};
