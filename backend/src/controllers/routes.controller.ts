@@ -60,21 +60,28 @@ export const createRoute = async (req: Request, res: Response) => {
   const { titulo, descricao, duracao, dificuldade, cidade, categoria } = req.body;
   const user = res.locals.user;
 
-  if (!titulo || !descricao || !duracao || !dificuldade || !cidade || !categoria) {
+  if (
+    !titulo?.trim() ||
+    !descricao?.trim() ||
+    !duracao?.trim() ||
+    !dificuldade?.trim() ||
+    !cidade?.trim() ||
+    !categoria?.trim()
+  ) {
     return res.status(400).json({
-      message: 'titulo, descricao, duracao, dificuldade, cidade and categoria are required',
+      message: 'titulo, descricao, duracao, dificuldade, cidade e categoria são obrigatórios',
     });
   }
 
   const { data, error } = await supabase
     .from('routes')
     .insert({
-      titulo,
-      descricao,
-      duracao,
-      dificuldade,
-      cidade,
-      categoria,
+      titulo: titulo.trim(),
+      descricao: descricao.trim(),
+      duracao: duracao.trim(),
+      dificuldade: dificuldade.trim(),
+      cidade: cidade.trim(),
+      categoria: categoria.trim(),
       user_id: user.id,
     })
     .select()
@@ -95,7 +102,7 @@ export const createRoute = async (req: Request, res: Response) => {
 
 export const updateRoute = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { titulo, descricao, duracao, dificuldade, cidade, categoria} = req.body;
+  const { titulo, descricao, duracao, dificuldade, cidade, categoria } = req.body;
   const user = res.locals.user;
 
   const { data: existingRoute, error: existingError } = await supabase
@@ -116,15 +123,28 @@ export const updateRoute = async (req: Request, res: Response) => {
     });
   }
 
+  if (
+    !titulo?.trim() ||
+    !descricao?.trim() ||
+    !duracao?.trim() ||
+    !dificuldade?.trim() ||
+    !cidade?.trim() ||
+    !categoria?.trim()
+  ) {
+    return res.status(400).json({
+      message: 'titulo, descricao, duracao, dificuldade, cidade e categoria são obrigatórios',
+    });
+  }
+
   const { data, error } = await supabase
     .from('routes')
     .update({
-      titulo,
-      descricao,
-      duracao,
-      dificuldade,
-      cidade,
-      categoria,
+      titulo: titulo.trim(),
+      descricao: descricao.trim(),
+      duracao: duracao.trim(),
+      dificuldade: dificuldade.trim(),
+      cidade: cidade.trim(),
+      categoria: categoria.trim(),
     })
     .eq('id', id)
     .select()
