@@ -2,12 +2,13 @@ import { Request, Response } from 'express';
 import { supabase } from '../config/supabase';
 
 export const listRoutes = async (req: Request, res: Response) => {
+  console.log('LIST ROUTES UPDATED');
   const { duration } = req.query;
 
   let query = supabase.from('routes').select('*');
 
   if (duration) {
-    query = query.eq('duracao', String(duration));
+    query = query.eq('duracao', String(duration).trim());
   }
 
   const { data, error } = await query.order('id', { ascending: false });
@@ -19,7 +20,10 @@ export const listRoutes = async (req: Request, res: Response) => {
     });
   }
 
-  return res.status(200).json(data);
+  return res.status(200).json({
+    message: 'Routes fetched successfully',
+    data,
+  });
 };
 
 export const getRouteById = async (req: Request, res: Response) => {
