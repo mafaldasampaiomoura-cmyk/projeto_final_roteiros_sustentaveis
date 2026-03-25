@@ -24,9 +24,9 @@ Campos:
 - created_at - data de criação
 
 Regras:
-- id é chave primária
-- email é único
-- name e email são obrigatórios
+- id é chave primária  
+- email é único  
+- name e email são obrigatórios  
 
 SQL:
 ```sql
@@ -52,6 +52,8 @@ Campos:
 * descricao - descrição do roteiro
 * duracao - duração estimada
 * dificuldade - nível de dificuldade
+* cidade - cidade associada ao roteiro
+* categoria - categoria do roteiro
 
 Regras:
 
@@ -69,7 +71,9 @@ CREATE TABLE routes (
   titulo TEXT NOT NULL,
   descricao TEXT NOT NULL,
   duracao TEXT NOT NULL,
-  dificuldade TEXT NOT NULL
+  dificuldade TEXT NOT NULL,
+  cidade TEXT NOT NULL,
+  categoria TEXT NOT NULL
 );
 ```
 
@@ -93,7 +97,7 @@ Regras:
 * route_id é chave estrangeira para routes(id)
 * um roteiro pode ter vários pontos
 * os pontos devem ter uma ordem definida
-* ao eliminar um roteiro, os seus pontos devem ser eliminados
+* ao eliminar um roteiro, os seus pontos são eliminados
 
 SQL:
 
@@ -128,6 +132,7 @@ Descrição:
 * não pode existir um roteiro sem utilizador associado
 * não pode existir um ponto sem roteiro associado
 * não pode existir um perfil sem nome e email
+* não pode existir um roteiro sem título, descrição, duração, dificuldade, cidade e categoria
 * os pontos de um roteiro devem ter ordem definida
 * o email deve ser único
 
