@@ -10,10 +10,11 @@ O objetivo é suportar uma aplicação de turismo interativo, onde cada utilizad
 
 ## Tecnologias Utilizadas
 
-* Node.js
-* Express
-* Supabase (Base de Dados + Autenticação)
-* TypeScript
+- Node.js
+- Express
+- TypeScript
+- Supabase (Base de Dados + Autenticação)
+- GitHub Actions (CI)
 
 ---
 
@@ -21,37 +22,29 @@ O objetivo é suportar uma aplicação de turismo interativo, onde cada utilizad
 
 1. Clonar o repositório
 
-```bash
 git clone <url-do-repositorio>
-```
 
-2. Instalar dependências
+2. Entrar na pasta do backend
 
-```bash
+cd backend
+
+3. Instalar dependências
+
 npm install
-```
 
-3. Criar ficheiro `.env` com as variáveis necessárias
+4. Criar ficheiro `.env`
 
-Exemplo:
+SUPABASE_URL=your_url  
+SUPABASE_KEY=your_key  
+PORT=3000  
 
-```env
-SUPABASE_URL=your_url
-SUPABASE_KEY=your_key
-PORT=3000
-```
+5. Iniciar o servidor
 
-4. Iniciar o servidor
-
-```bash
 npm run dev
-```
 
 Servidor disponível em:
 
-```
 http://localhost:3000
-```
 
 ---
 
@@ -59,9 +52,7 @@ http://localhost:3000
 
 Base URL:
 
-```
 /api
-```
 
 ---
 
@@ -69,81 +60,100 @@ Base URL:
 
 ### Health Check
 
-```
-GET /api/db-health
-```
-
-Verifica se a API e ligação à base de dados estão funcionais.
+GET /api/health
 
 ---
 
-### Profiles
+### Auth
 
-```
-GET /api/profiles
-POST /api/profiles
-```
-
-Permite obter e criar perfis de utilizador.
+POST /api/auth/register  
+POST /api/auth/login  
 
 ---
 
 ### Routes
 
-```
-GET /api/routes
-POST /api/routes
-```
+GET /api/routes  
+GET /api/routes/:id  
+POST /api/routes  
+PUT /api/routes/:id  
+DELETE /api/routes/:id  
 
-Permite obter e criar roteiros.
+- GET lista roteiros  
+- GET by id devolve roteiro + pontos  
+- POST cria roteiro  
+- PUT atualiza roteiro  
+- DELETE elimina roteiro  
+
+Regras:
+- requer autenticação (exceto GET)  
+- só o dono pode editar/eliminar  
 
 ---
 
 ### Route Points
 
-```
-GET /api/route-points
-POST /api/route-points
-```
+GET /api/route-points  
+POST /api/route-points  
+DELETE /api/route-points/:id  
 
-Permite obter e criar pontos dentro de um roteiro.
+- GET lista pontos  
+- POST cria ponto  
+- DELETE elimina ponto  
+
+Regras:
+- requer autenticação (POST, DELETE)  
+- só podes mexer nos teus roteiros  
 
 ---
 
 ## Autenticação
 
-A autenticação é gerida através do Supabase.
+Header obrigatório nas rotas protegidas:
 
-Atualmente, algumas rotas podem requerer um token JWT enviado no header:
-
-```
 Authorization: Bearer <token>
-```
-
-Nota: Em fase de desenvolvimento, algumas rotas podem aceitar dados diretamente (ex: user_id).
 
 ---
 
-## Estado Atual do Projeto
+## Base de Dados
 
-* Estrutura base da API implementada
-* Integração com Supabase funcional
-* Tabelas principais criadas: profiles, routes, route_points
-* Endpoints básicos disponíveis
-* Testes realizados via Postman
+Tabelas principais:
+
+- profiles  
+- routes  
+- route_points  
+
+### Relações
+
+- 1 user → N routes  
+- 1 route → N points  
+
+---
+
+## Estado Atual
+
+- API funcional  
+- autenticação implementada  
+- CRUD de routes completo  
+- endpoints de route_points funcionais  
+- permissões implementadas  
+- CI configurado  
+- testes via Postman  
 
 ---
 
 ## Melhorias Futuras
 
-* Sistema completo de autenticação e autorização
-* Validação de dados
-* Paginação e filtros
-* Upload de imagens
-* Sistema de favoritos e avaliações
+- validação avançada  
+- paginação e filtros  
+- imagens  
+- favoritos  
+- reviews  
+- Docker  
+- frontend  
 
 ---
 
 ## Autor
 
-Projeto desenvolvido no âmbito de trabalho académico.
+Projeto académico.
