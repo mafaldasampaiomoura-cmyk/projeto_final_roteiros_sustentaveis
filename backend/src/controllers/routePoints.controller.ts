@@ -29,6 +29,25 @@ export const createRoutePoint = async (req: Request, res: Response) => {
     });
   }
 
+  const { data: existingPoint, error: existingPointError } = await supabase
+  .from('route_points')
+  .select('id')
+  .eq('route_id', route_id)
+  .eq('ordem', ordem)
+  .maybeSingle();
+
+if (existingPointError) {
+  return res.status(500).json({
+    message: 'Failed to validate point order',
+    error: existingPointError.message,
+  });
+}
+
+if (existingPoint) {
+  return res.status(400).json({
+    message: 'Já existe um ponto com essa ordem neste roteiro',
+  });
+}
   const { data, error } = await supabase
     .from('route_points')
     .insert({
