@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { supabase } from '../config/supabase';
 
 export const listRoutes = async (req: Request, res: Response) => {
-  console.log('LIST ROUTES UPDATED');
+  
   const { duration } = req.query;
 
   let query = supabase.from('routes').select('*');
@@ -45,7 +45,7 @@ export const getRouteById = async (req: Request, res: Response) => {
     .from('route_points')
     .select('*')
     .eq('route_id', id)
-    .order('id', { ascending: true });
+    .order('ordem', { ascending: true });
 
   if (pointsError) {
     return res.status(500).json({
