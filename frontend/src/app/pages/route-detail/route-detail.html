@@ -1,4 +1,39 @@
 <app-navbar></app-navbar>
 
-<h1>Detalhe Roteiro</h1>
-<p>Informação detalhada sobre o roteiro</p>
+<section class="route-detail-page">
+  @if (route) {
+    <div class="route-detail-card">
+      <p class="detail-label">Roteiro</p>
+      <h1>{{ route.titulo }}</h1>
+      <p class="route-description">{{ route.descricao }}</p>
+
+      <div class="route-meta">
+        <span class="meta-badge">{{ route.cidade }}</span>
+        <span class="meta-badge">{{ route.duracao }}</span>
+        <span class="meta-badge">{{ route.dificuldade }}</span>
+        <span class="meta-badge">{{ route.categoria }}</span>
+      </div>
+    </div>
+
+    <section class="route-points">
+      <h2>Pontos do roteiro</h2>
+
+      @if (route.points && route.points.length > 0) {
+        <div class="points-list">
+          @for (point of route.points; track point.id) {
+            <div class="point-card">
+              <div class="point-order">Ponto {{ point.ordem }}</div>
+              <h3>{{ point.nome }}</h3>
+              <p>{{ point.descricao }}</p>
+              <p class="point-address">{{ point.morada }}</p>
+            </div>
+          }
+        </div>
+      } @else {
+        <p class="empty-message">Este roteiro ainda não tem pontos.</p>
+      }
+    </section>
+  } @else {
+    <p class="loading-message">A carregar roteiro...</p>
+  }
+</section>
