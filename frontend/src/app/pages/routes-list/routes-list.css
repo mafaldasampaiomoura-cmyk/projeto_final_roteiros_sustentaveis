@@ -1,0 +1,61 @@
+.routes-page {
+  padding: 32px;
+}
+
+.subtitle {
+  margin-bottom: 24px;
+  color: #6b7b71;
+}
+
+.routes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.route-card {
+  background-color: #f8f9fa;
+  border: 1px solid #e6e6e6;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.route-card h2 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: #1b4332;
+}
+
+.route-description {
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.route-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.route-meta span {
+  background-color: #e9f1ec;
+  color: #1b4332;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+.detail-link {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #1b4332;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.detail-link:hover {
+  opacity: 0.9;
+}
