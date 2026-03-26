@@ -1,0 +1,16 @@
+.home-nav {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.home-nav a {
+    text-decoration: none;
+    color: #1B4332;
+    font-weight: 600;
+}
+
+.home-nav a:hover {
+    text-decoration: underline;
+}
+
