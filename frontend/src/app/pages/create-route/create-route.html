@@ -1,4 +1,81 @@
 <app-navbar></app-navbar>
 
-<h1>Criar Roteiro</h1>
-<p>Cria o teu próprio roteiro à tua medida</p>
+<section class="create-route-page">
+  <div class="create-route-card">
+    <h1>Criar roteiro</h1>
+    <p>Preenche os dados do novo roteiro.</p>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="titulo">Título</label>
+        <input
+          id="titulo"
+          type="text"
+          name="titulo"
+          [(ngModel)]="titulo"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="descricao">Descrição</label>
+        <textarea
+          id="descricao"
+          name="descricao"
+          [(ngModel)]="descricao"
+          rows="4"
+          required
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="cidade">Cidade</label>
+        <input
+          id="cidade"
+          type="text"
+          name="cidade"
+          [(ngModel)]="cidade"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="duracao">Duração</label>
+        <input
+          id="duracao"
+          type="text"
+          name="duracao"
+          [(ngModel)]="duracao"
+          placeholder="Ex: 2 horas"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="dificuldade">Dificuldade</label>
+        <input
+          id="dificuldade"
+          type="text"
+          name="dificuldade"
+          [(ngModel)]="dificuldade"
+          placeholder="Ex: Fácil"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="categoria">Categoria</label>
+        <input
+          id="categoria"
+          type="text"
+          name="categoria"
+          [(ngModel)]="categoria"
+          placeholder="Ex: Cultural"
+          required
+        />
+      </div>
+
+      <button type="submit">Criar roteiro</button>
+    </form>
+  </div>
+</section>
