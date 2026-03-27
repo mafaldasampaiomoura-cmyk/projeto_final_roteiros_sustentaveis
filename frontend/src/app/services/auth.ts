@@ -8,6 +8,12 @@ export interface LoginResponse {
   user: any;
 }
 
+export interface RegisterResponse {
+  message: string, 
+  user: any;
+}
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -18,6 +24,14 @@ export class AuthService {
   login(email: string, password: string) {
     return this.http.post<LoginResponse>(`${environment.apiUrl}/auth/login`, {
       email,
+      password,
+    });
+  }
+  
+  register(name:string, email:string, password:string) {
+    return this.http.post<RegisterResponse>(`${environment.apiUrl}/auth/register`,{
+      name, 
+      email, 
       password,
     });
   }
