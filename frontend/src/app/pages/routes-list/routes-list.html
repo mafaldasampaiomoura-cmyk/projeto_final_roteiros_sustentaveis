@@ -1,34 +1,25 @@
 <app-navbar></app-navbar>
 
 <section class="routes-page">
-    <h1>Explorar Roteiros</h1>
-    <p class="subtitle">Lista de roteiros disponiíveis</p>
+  <h1>Explorar Roteiros</h1>
+  <p class="subtitle">Lista de roteiros disponíveis</p>
 
-    <div class="routes-grid">
-        @for (route of routesList; track route.id){
-            <div class="route-card">
-                <h2>{{ route.titulo }}</h2>
-                <p class="route-description">{{ route.descricao }}</p>
+  <p>Total de roteiros: {{ routesList.length }}</p>
 
-            <div class="route-meta">
-                <span>{{route.cidade}}</span>
-                <span>{{route.duracao}}</span>
-                <span>{{route.dificuldade}}</span>
-            </div>    
+  <div class="routes-grid">
+    @for (route of routesList; track route.id) {
+      <div class="route-card">
+        <h2>{{ route.titulo }}</h2>
+        <p class="route-description">{{ route.descricao }}</p>
 
-            <a class="detail-link" [routerLink]="['/routes', route.id]"> Ver Detalhe</a>
-            </div>
-        }
-    </div>
-</section>
+        <div class="route-meta">
+          <span>{{ route.cidade }}</span>
+          <span>{{ route.duracao }}</span>
+          <span>{{ route.dificuldade }}</span>
+        </div>
 
-
-<!-- <h1>Explorar Roteiros</h1>
-<p>Lista de Roteiros Disponíveis</p>
-
-@for (route of routesList; track route.id) {
-  <div class="route-card">
-    <h2>{{ route.titulo }}</h2>
-    <p>{{ route.descricao }}</p>
+        <a class="detail-link" [routerLink]="['/routes', route.id]">Ver detalhe</a>
+      </div>
+    }
   </div>
-} -->
+</section>
