@@ -1,10 +1,19 @@
 .routes-page {
-  padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 20px 48px;
+}
+
+.routes-page h1 {
+  margin: 0 0 8px;
+  font-size: 32px;
+  color: #1b4332;
 }
 
 .subtitle {
-  margin-bottom: 24px;
-  color: #6b7b71;
+  margin: 0 0 28px;
+  color: #6b7280;
+  font-size: 16px;
 }
 
 .routes-grid {
@@ -14,21 +23,28 @@
 }
 
 .route-card {
-  background-color: #f8f9fa;
-  border: 1px solid #e6e6e6;
-  border-radius: 16px;
-  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .route-card h2 {
-  margin-top: 0;
-  margin-bottom: 12px;
+  margin: 0 0 12px;
   color: #1b4332;
+  font-size: 22px;
+  line-height: 1.3;
 }
 
 .route-description {
-  margin-bottom: 16px;
-  color: #333;
+  margin: 0 0 16px;
+  color: #4b5563;
+  line-height: 1.6;
+  flex-grow: 1;
 }
 
 .route-meta {
@@ -39,23 +55,70 @@
 }
 
 .route-meta span {
-  background-color: #e9f1ec;
+  background: #e9f1ec;
   color: #1b4332;
   padding: 6px 10px;
   border-radius: 999px;
   font-size: 14px;
+  font-weight: 600;
 }
 
 .detail-link {
   display: inline-block;
+  align-self: flex-start;
   text-decoration: none;
-  background-color: #1b4332;
-  color: white;
+  background: #1b4332;
+  color: #ffffff;
   padding: 10px 16px;
-  border-radius: 10px;
-  font-weight: 600;
+  border-radius: 12px;
+  font-weight: 700;
+  transition: 0.2s ease;
 }
 
 .detail-link:hover {
-  opacity: 0.9;
+  opacity: 0.95;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .routes-page {
+    padding: 24px 16px 40px;
+  }
+
+  .routes-page h1 {
+    font-size: 28px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .routes-page h1 {
+    font-size: 24px;
+  }
+
+  .route-card {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .route-card h2 {
+    font-size: 20px;
+  }
+
+  .route-description {
+    font-size: 14px;
+  }
+
+  .route-meta span {
+    font-size: 13px;
+  }
+
+  .detail-link {
+    width: 100%;
+    text-align: center;
+  }
 }
