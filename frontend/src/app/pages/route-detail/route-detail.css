@@ -7,33 +7,33 @@
 .route-detail-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 18px;
-  padding: 28px;
+  border-radius: 20px;
+  padding: 30px;
   margin-bottom: 32px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
 }
 
 .detail-label {
   margin: 0 0 8px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #16a34a;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  color: #1b4332;
 }
 
 .route-detail-card h1 {
-  margin: 0 0 12px;
-  font-size: 32px;
+  margin: 0 0 14px;
+  font-size: 34px;
   line-height: 1.2;
-  color: #111827;
+  color: #1b4332;
 }
 
 .route-description {
   margin: 0 0 20px;
-  font-size: 16px;
-  line-height: 1.6;
   color: #4b5563;
+  line-height: 1.7;
+  font-size: 16px;
 }
 
 .route-meta {
@@ -45,30 +45,29 @@
 .meta-badge {
   display: inline-block;
   padding: 8px 14px;
-  background: #f0fdf4;
-  color: #166534;
-  border: 1px solid #bbf7d0;
   border-radius: 999px;
+  background: #e9f1ec;
+  color: #1b4332;
   font-size: 14px;
   font-weight: 600;
 }
 
 .route-points h2 {
   margin: 0 0 18px;
-  font-size: 24px;
-  color: #111827;
+  font-size: 26px;
+  color: #1b4332;
 }
 
 .points-list {
   display: grid;
-  gap: 16px;
+  gap: 18px;
 }
 
 .point-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  padding: 20px;
+  border-radius: 18px;
+  padding: 22px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
 
@@ -76,23 +75,23 @@
   display: inline-block;
   margin-bottom: 10px;
   padding: 6px 10px;
-  background: #ecfeff;
-  color: #155e75;
   border-radius: 999px;
+  background: #eef6f1;
+  color: #1b4332;
   font-size: 13px;
   font-weight: 700;
 }
 
 .point-card h3 {
-  margin: 0 0 8px;
-  font-size: 20px;
-  color: #111827;
+  margin: 0 0 10px;
+  font-size: 21px;
+  color: #1b4332;
 }
 
 .point-card p {
   margin: 0 0 10px;
   color: #4b5563;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .point-address {
@@ -105,4 +104,56 @@
 .loading-message {
   color: #6b7280;
   font-size: 15px;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .route-detail-page {
+    padding: 24px 16px 40px;
+  }
+
+  .route-detail-card {
+    padding: 24px;
+  }
+
+  .route-detail-card h1 {
+    font-size: 28px;
+  }
+
+  .route-points h2 {
+    font-size: 24px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .route-detail-card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .route-detail-card h1 {
+    font-size: 24px;
+  }
+
+  .route-description {
+    font-size: 14px;
+  }
+
+  .meta-badge {
+    font-size: 13px;
+  }
+
+  .point-card {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .point-card h3 {
+    font-size: 19px;
+  }
+
+  .point-card p {
+    font-size: 14px;
+  }
 }
