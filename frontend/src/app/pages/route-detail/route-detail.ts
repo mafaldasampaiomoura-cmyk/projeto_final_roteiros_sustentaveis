@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Navbar } from '../../components/navbar/navbar';
 import { ActivatedRoute } from '@angular/router';
 import { RoutesService } from '../../services/routes';
+import { FavoritesService } from '../../services/favorites';
 
 @Component({
   selector: 'app-route-detail',
@@ -15,7 +16,8 @@ export class RouteDetail implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private routesService: RoutesService
+    private routesService: RoutesService,
+    private favoritesService: FavoritesService,
   ) {}
 
   ngOnInit(): void {
@@ -28,4 +30,17 @@ export class RouteDetail implements OnInit {
       });
     }
   }
+  
+  addToFavorites() {
+  if (!this.route) return;
+
+  this.favoritesService.addFavorite(this.route.id).subscribe({
+    next: (response) => {
+      console.log('FAVORITO ADICIONADO:', response);
+    },
+    error: (error) => {
+      console.error('ERRO AO ADICIONAR FAVORITO:', error);
+    },
+  });
+}
 }
