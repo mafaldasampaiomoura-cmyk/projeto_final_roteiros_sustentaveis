@@ -14,7 +14,10 @@
         <span class="meta-badge">{{ route.categoria }}</span>
       </div>
 
-      <button type="button" (click)="addToFavorites()">Adicionar aos favoritos</button>
+      <button type="button" (click)="addToFavourites()">Adicionar aos favoritos</button>
+        
+      @if (successMessage) { <p>{{ successMessage }}</p>}
+      @if (errorMessage) { <p>{{ errorMessage }}</p> }
       
     </div>
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Navbar } from '../../components/navbar/navbar';
 import { ActivatedRoute } from '@angular/router';
 import { RoutesService } from '../../services/routes';
-import { FavoritesService } from '../../services/favorites';
+import { FavouritesService } from '../../services/favourites.services';
 
 @Component({
   selector: 'app-route-detail',
@@ -13,11 +13,13 @@ import { FavoritesService } from '../../services/favorites';
 export class RouteDetail implements OnInit {
   routeId: string | null = null;
   route: any = null;
+  successMessage = '';
+  errorMessage = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private routesService: RoutesService,
-    private favoritesService: FavoritesService,
+    private favouritesService: FavouritesService
   ) {}
 
   ngOnInit(): void {
@@ -25,22 +27,25 @@ export class RouteDetail implements OnInit {
 
     if (this.routeId) {
       this.routesService.getRouteById(this.routeId).subscribe((data: any) => {
-        console.log('ROTEIRO:', data);
         this.route = data;
       });
     }
   }
-  
-  addToFavorites() {
-  if (!this.route) return;
 
-  this.favoritesService.addFavorite(this.route.id).subscribe({
-    next: (response) => {
-      console.log('FAVORITO ADICIONADO:', response);
-    },
-    error: (error) => {
-      console.error('ERRO AO ADICIONAR FAVORITO:', error);
-    },
-  });
-}
+  addToFavourites(): void {
+    if (!this.route) return;
+
+    this.successMessage = '';
+    this.errorMessage = '';
+
+    this.favouritesService.addFavourite(this.route.id).subscribe({
+      next: () => {
+        this.successMessage = 'Roteiro adicionado aos favoritos com sucesso.';
+      },
+      error: (error) => {
+        console.error('ERRO AO ADICIONAR FAVORITO:', error);
+        this.errorMessage = 'Não foi possível adicionar aos favoritos.';
+      },
+    });
+  }
 }

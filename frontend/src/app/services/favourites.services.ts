@@ -5,15 +5,15 @@ import { environment } from '../../environments/environments';
 @Injectable({
   providedIn: 'root',
 })
-export class FavoritesService {
+export class FavouritesService {
   constructor(private http: HttpClient) {}
 
-  private getToken() {
+  private getToken(): string {
     const session = JSON.parse(localStorage.getItem('session') || '{}');
-    return session.access_token;
+    return session.access_token || '';
   }
 
-  getFavorites() {
+  getFavourites() {
     return this.http.get(`${environment.apiUrl}/favourites`, {
       headers: {
         Authorization: `Bearer ${this.getToken()}`,
@@ -21,7 +21,7 @@ export class FavoritesService {
     });
   }
 
-  addFavorite(routeId: string) {
+  addFavourite(routeId: string) {
     return this.http.post(
       `${environment.apiUrl}/favourites`,
       { route_id: routeId },
@@ -31,5 +31,13 @@ export class FavoritesService {
         },
       }
     );
+  }
+
+  removeFavourite(routeId: string) {
+    return this.http.delete(`${environment.apiUrl}/favourites/${routeId}`, {
+      headers: {
+        Authorization: `Bearer ${this.getToken()}`,
+      },
+    });
   }
 }
