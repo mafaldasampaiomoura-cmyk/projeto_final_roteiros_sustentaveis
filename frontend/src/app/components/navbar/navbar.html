@@ -1,6 +1,6 @@
 <header class="navbar-wrapper">
   <nav class="navbar">
-    <a class="brand" [routerLink]="isLoggedIn ? '/routes' : '/'">Rota Local</a>
+    <a class="brand" [routerLink]="isLoggedIn ? '/routes' : '/'">Roteiros Sustentáveis</a>
 
     <div class="nav-center">
       <a routerLink="/routes" routerLinkActive="active-link">Explorar</a>
@@ -10,6 +10,8 @@
 
     <div class="nav-right">
       @if (isLoggedIn) {
+        <span class="user-email">{{ userEmail }}</span>
+
         <button
           type="button"
           class="auth-button logout-button"

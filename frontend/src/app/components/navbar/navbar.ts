@@ -10,6 +10,7 @@ import { filter, Subscription } from 'rxjs';
 })
 export class Navbar implements OnInit, OnDestroy {
   isLoggedIn = false;
+  userEmail = '';
   private routerSubscription?: Subscription;
 
   constructor(private router: Router) {}
@@ -26,13 +27,23 @@ export class Navbar implements OnInit, OnDestroy {
 
   checkLoginStatus(): void {
     const session = localStorage.getItem('session');
+    const user = localStorage.getItem('user');
+
     this.isLoggedIn = !!session;
+
+    if (user) {
+      const parsedUser = JSON.parse(user);
+      this.userEmail = parsedUser.email || '';
+    } else {
+      this.userEmail = '';
+    }
   }
 
   logout(): void {
     localStorage.removeItem('session');
     localStorage.removeItem('user');
     this.isLoggedIn = false;
+    this.userEmail = '';
     this.router.navigate(['/']);
   }
 
