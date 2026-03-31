@@ -1,7 +1,77 @@
-<h1>Homepage</h1>
+<section class="public-topbar">
+  <a class="brand" routerLink="/">Rota Local</a>
 
-<nav class="home-nav">
-    <a routerLink="/login">Login</a>
-    <a routerLink="/register">Registo</a>
-    <a routerLink="/routes">Ver Roteiros</a>
-</nav>
+  <div class="public-actions">
+    <a class="login-link" routerLink="/login">Login</a>
+    <a class="register-link" routerLink="/register">Registar</a>
+  </div>
+</section>
+
+<section class="home-page">
+  <section class="hero-section">
+    <div class="hero-text">
+      <p class="eyebrow">Explora com propósito</p>
+      <h1>Descobre roteiros locais e sustentáveis</h1>
+      <p class="hero-description">
+        Encontra experiências autênticas, cria os teus próprios roteiros e
+        guarda os teus favoritos numa plataforma feita para explorar com mais
+        calma e impacto positivo.
+      </p>
+
+      <div class="hero-actions">
+        <a class="primary-button" routerLink="/routes">Explorar roteiros</a>
+        <a class="secondary-button" routerLink="/create-route">Criar roteiro</a>
+      </div>
+    </div>
+
+    <div class="hero-image-card">
+      <img
+        src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=1200&q=80"
+        alt="Paisagem natural"
+      />
+    </div>
+  </section>
+
+  <section class="featured-section">
+    <div class="section-header">
+      <div>
+        <p class="section-eyebrow">Roteiros em destaque</p>
+        <h2>Ideias para começar a explorar</h2>
+      </div>
+
+      <a class="section-link" routerLink="/routes">Ver todos</a>
+    </div>
+
+    <div class="cards-grid">
+      @for (route of featuredRoutes; track route.title) {
+        <article class="route-card">
+          <img [src]="route.image" [alt]="route.title" class="route-card-image" />
+
+          <div class="route-card-content">
+            <p class="route-location">{{ route.subtitle }}</p>
+            <h3>{{ route.title }}</h3>
+            <p class="route-description">{{ route.description }}</p>
+
+            <div class="route-meta">
+              <span>{{ route.duration }}</span>
+              <span>{{ route.difficulty }}</span>
+            </div>
+
+            <a class="card-button" routerLink="/routes">Ver mais</a>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="quote-section">
+    <div class="quote-card">
+      <p class="quote-icon">✦</p>
+      <blockquote>
+        “Viajar não é apenas ver o que existe, mas redescobrir o mundo com mais
+        tempo, atenção e respeito pelo lugar.”
+      </blockquote>
+      <p class="quote-author">Roteiros Sustentáveis</p>
+    </div>
+  </section>
+</section>

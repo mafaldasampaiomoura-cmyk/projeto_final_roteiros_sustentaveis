@@ -4,22 +4,28 @@
   <h1>Explorar Roteiros</h1>
   <p class="subtitle">Lista de roteiros disponíveis</p>
 
-  <p>Total de roteiros: {{ routesList.length }}</p>
+  @if (loading) {
+    <p>A carregar roteiros...</p>
+  } @else if (routesList.length > 0) {
+    <div class="routes-grid">
+      @for (route of routesList; track route.id) {
+        <div class="route-card">
+          <h2>{{ route.titulo }}</h2>
+          <p class="route-description">{{ route.descricao }}</p>
 
-  <div class="routes-grid">
-    @for (route of routesList; track route.id) {
-      <div class="route-card">
-        <h2>{{ route.titulo }}</h2>
-        <p class="route-description">{{ route.descricao }}</p>
+          <div class="route-meta">
+            <span>{{ route.cidade }}</span>
+            <span>{{ route.duracao }}</span>
+            <span>{{ route.dificuldade }}</span>
+          </div>
 
-        <div class="route-meta">
-          <span>{{ route.cidade }}</span>
-          <span>{{ route.duracao }}</span>
-          <span>{{ route.dificuldade }}</span>
+          <a class="detail-link" [routerLink]="['/routes', route.id]">
+            Ver detalhe
+          </a>
         </div>
-
-        <a class="detail-link" [routerLink]="['/routes', route.id]">Ver detalhe</a>
-      </div>
-    }
-  </div>
+      }
+    </div>
+  } @else {
+    <p>Não existem roteiros para mostrar.</p>
+  }
 </section>

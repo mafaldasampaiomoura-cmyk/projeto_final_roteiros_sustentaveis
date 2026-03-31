@@ -42,4 +42,36 @@ export class RoutesService {
       }
     );
   }
+
+  updateRoute(
+    id: string,
+    routeData: {
+      titulo: string;
+      descricao: string;
+      duracao: string;
+      dificuldade: string;
+      cidade: string;
+      categoria: string;
+    }
+  ) {
+    const session = JSON.parse(localStorage.getItem('session') || '{}');
+    const token = session.access_token;
+
+    return this.http.put(`${environment.apiUrl}/routes/${id}`, routeData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  deleteRoute(id: string) {
+    const session = JSON.parse(localStorage.getItem('session') || '{}');
+    const token = session.access_token;
+
+    return this.http.delete(`${environment.apiUrl}/routes/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
 }

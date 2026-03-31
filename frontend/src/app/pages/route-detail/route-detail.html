@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 
 <section class="route-detail-page">
-  @if (route) {
+  @if (route !== null) {
     <div class="route-detail-card">
       <p class="detail-label">Roteiro</p>
       <h1>{{ route.titulo }}</h1>
@@ -14,8 +14,17 @@
         <span class="meta-badge">{{ route.categoria }}</span>
       </div>
 
-      <button type="button" (click)="addToFavorites()">Adicionar aos favoritos</button>
-      
+      <div class="detail-actions">
+        <button type="button" (click)="addToFavorites()">
+          Adicionar aos favoritos
+        </button>
+
+        <a [routerLink]="['/routes/edit', route.id]">Editar roteiro</a>
+
+        <button type="button" class="delete-button" (click)="deleteRoute()">
+          Eliminar roteiro
+        </button>
+      </div>
     </div>
 
     <section class="route-points">
@@ -28,7 +37,20 @@
               <div class="point-order">Ponto {{ point.ordem }}</div>
               <h3>{{ point.nome }}</h3>
               <p>{{ point.descricao }}</p>
-              <p class="point-address">{{ point.morada }}</p>
+              <p class="point-address">
+                <strong>Localização:</strong> {{ point.morada }}
+              </p>
+
+              @if (point.morada) {
+                <a
+                  class="maps-link"
+                  [href]="getGoogleMapsLink(point.morada)"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Ver no Google Maps
+                </a>
+              }
             </div>
           }
         </div>

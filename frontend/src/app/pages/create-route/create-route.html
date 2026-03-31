@@ -3,16 +3,16 @@
 <section class="create-route-page">
   <div class="create-route-card">
     <h1>Criar roteiro</h1>
-    <p>Preenche os dados do novo roteiro.</p>
+    <p>Preenche os dados abaixo para criares um novo roteiro sustentável.</p>
 
-    <form (ngSubmit)="onSubmit()">
+    <form (ngSubmit)="createRoute()">
       <div class="form-group">
         <label for="titulo">Título</label>
         <input
           id="titulo"
           type="text"
           name="titulo"
-          [(ngModel)]="titulo"
+          [(ngModel)]="route.titulo"
           required
         />
       </div>
@@ -22,8 +22,7 @@
         <textarea
           id="descricao"
           name="descricao"
-          [(ngModel)]="descricao"
-          rows="4"
+          [(ngModel)]="route.descricao"
           required
         ></textarea>
       </div>
@@ -34,7 +33,7 @@
           id="cidade"
           type="text"
           name="cidade"
-          [(ngModel)]="cidade"
+          [(ngModel)]="route.cidade"
           required
         />
       </div>
@@ -45,7 +44,7 @@
           id="duracao"
           type="text"
           name="duracao"
-          [(ngModel)]="duracao"
+          [(ngModel)]="route.duracao"
           placeholder="Ex: 2 horas"
           required
         />
@@ -53,14 +52,17 @@
 
       <div class="form-group">
         <label for="dificuldade">Dificuldade</label>
-        <input
+        <select
           id="dificuldade"
-          type="text"
           name="dificuldade"
-          [(ngModel)]="dificuldade"
-          placeholder="Ex: Fácil"
+          [(ngModel)]="route.dificuldade"
           required
-        />
+        >
+          <option value="">Seleciona uma opção</option>
+          <option value="Fácil">Fácil</option>
+          <option value="Média">Média</option>
+          <option value="Difícil">Difícil</option>
+        </select>
       </div>
 
       <div class="form-group">
@@ -69,10 +71,74 @@
           id="categoria"
           type="text"
           name="categoria"
-          [(ngModel)]="categoria"
-          placeholder="Ex: Cultural"
+          [(ngModel)]="route.categoria"
+          placeholder="Ex: Natureza, Cultura, Gastronomia"
           required
         />
+      </div>
+
+      <div class="points-section">
+        <div class="points-header">
+          <h2>Pontos do roteiro</h2>
+          <button
+            type="button"
+            class="secondary-button"
+            (click)="addPointField()"
+          >
+            + Adicionar ponto
+          </button>
+        </div>
+
+        @for (point of points; track $index) {
+          <div class="point-card">
+            <div class="point-card-top">
+              <h3>Ponto {{ $index + 1 }}</h3>
+
+              @if (points.length > 1) {
+                <button
+                  type="button"
+                  class="remove-button"
+                  (click)="removePointField($index)"
+                >
+                  Remover
+                </button>
+              }
+            </div>
+
+            <div class="form-group">
+              <label [for]="'point-name-' + $index">Nome</label>
+              <input
+                [id]="'point-name-' + $index"
+                type="text"
+                [name]="'point-name-' + $index"
+                [(ngModel)]="point.name"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label [for]="'point-descricao-' + $index">Descrição</label>
+              <textarea
+                [id]="'point-descricao-' + $index"
+                [name]="'point-descricao-' + $index"
+                [(ngModel)]="point.descricao"
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label [for]="'point-morada-' + $index">
+                Nome do local / localização
+              </label>
+              <input
+                [id]="'point-morada-' + $index"
+                type="text"
+                [name]="'point-morada-' + $index"
+                [(ngModel)]="point.morada"
+                placeholder="Ex: Sé de Braga, Bom Jesus do Monte, Torre Eiffel"
+              />
+            </div>
+          </div>
+        }
       </div>
 
       <button type="submit">Criar roteiro</button>
