@@ -82,3 +82,15 @@ button:hover {
   font-size: 14px;
   font-weight: 600;
 }
+
+.back-home {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: #2e7d32;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.back-home:hover {
+  text-decoration: underline;
+}
