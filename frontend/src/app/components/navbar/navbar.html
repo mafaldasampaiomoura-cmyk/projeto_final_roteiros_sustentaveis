@@ -4,8 +4,11 @@
 
     <div class="nav-center">
       <a routerLink="/routes" routerLinkActive="active-link">Explorar</a>
-      <a routerLink="/favourites" routerLinkActive="active-link">Favoritos</a>
-      <a routerLink="/create-route" routerLinkActive="active-link">Criar Roteiro</a>
+
+      @if (isLoggedIn) {
+        <a routerLink="/favourites" routerLinkActive="active-link">Favoritos</a>
+        <a routerLink="/create-route" routerLinkActive="active-link">Criar Roteiro</a>
+      }
     </div>
 
     <div class="nav-right">
