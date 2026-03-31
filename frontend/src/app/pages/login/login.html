@@ -28,6 +28,14 @@
         />
       </div>
 
+      @if (errorMessage()) {
+        <p class="error-message">{{ errorMessage() }}</p>
+      }
+
+      @if (successMessage()) {
+        <p class="success-message">{{ successMessage() }}</p>
+      }
+
       <button type="submit">Entrar</button>
     </form>
   </div>

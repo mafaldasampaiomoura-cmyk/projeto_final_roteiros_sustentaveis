@@ -1,11 +1,25 @@
+<header class="navbar-wrapper">
+  <nav class="navbar">
+    <a class="brand" [routerLink]="isLoggedIn ? '/routes' : '/'">Rota Local</a>
 
-
-<nav class="navbar">
-    <h1>Roteiros Sustentáveis</h1>
-
-    <div class = "nav-links">
-        <a routerLink="/routes">Ver Roteiros</a>
-        <a routerLink="/create-route">Criar Roteiro</a>
-        <a routerLink="/favourites">Ver Favoritos</a>
+    <div class="nav-center">
+      <a routerLink="/routes" routerLinkActive="active-link">Explorar</a>
+      <a routerLink="/favourites" routerLinkActive="active-link">Favoritos</a>
+      <a routerLink="/create-route" routerLinkActive="active-link">Criar Roteiro</a>
     </div>
-</nav>
+
+    <div class="nav-right">
+      @if (isLoggedIn) {
+        <button
+          type="button"
+          class="auth-button logout-button"
+          (click)="logout()"
+        >
+          Logout
+        </button>
+      } @else {
+        <a class="auth-button" routerLink="/login">Login</a>
+      }
+    </div>
+  </nav>
+</header>

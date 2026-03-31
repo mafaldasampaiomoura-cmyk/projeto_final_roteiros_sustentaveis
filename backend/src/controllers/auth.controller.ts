@@ -14,6 +14,9 @@ export const register = async (req: Request, res: Response) => {
     email,
     password,
     email_confirm: true,
+    user_metadata: {
+      nome: name,
+    },
   });
 
   if (error) {
@@ -23,24 +26,9 @@ export const register = async (req: Request, res: Response) => {
     });
   }
 
-  const user = data.user;
-
-  const { error: profileError } = await supabase.from("profiles").upsert({
-    id: user.id,
-    nome: name,
-    email,
-  });
-
-  if (profileError) {
-    return res.status(400).json({
-      message: "User created but profile creation failed",
-      error: profileError.message,
-    });
-  }
-
   return res.status(201).json({
     message: "User registered successfully",
-    user,
+    user: data.user,
   });
 };
 

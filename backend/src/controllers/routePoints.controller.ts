@@ -53,8 +53,8 @@ if (existingPoint) {
     .insert({
       route_id,
       nome: name.trim(),
-      descricao: descricao?.trim() || null,
-      morada: morada?.trim() || null,
+      descricao: descricao?.trim() || '',
+      morada: morada?.trim() || '',
       ordem,
     })
     .select()

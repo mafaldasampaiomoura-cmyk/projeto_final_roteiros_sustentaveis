@@ -23,7 +23,7 @@
           id="descricao"
           name="descricao"
           [(ngModel)]="route.descricao"
-          required
+  
         ></textarea>
       </div>
 
@@ -40,14 +40,18 @@
 
       <div class="form-group">
         <label for="duracao">Duração</label>
-        <input
+        <select
           id="duracao"
-          type="text"
           name="duracao"
           [(ngModel)]="route.duracao"
-          placeholder="Ex: 2 horas"
-          required
-        />
+        >
+          <option value="">Seleciona uma duração</option>
+          <option value="Menos de 1 hora">Menos de 1 hora</option>
+          <option value="1 a 2 horas">1 a 2 horas</option>
+          <option value="2 a 4 horas">2 a 4 horas</option>
+          <option value="Meio Dia">Meio Dia</option>
+          <option value="Dia inteiro">Dia inteiro</option>
+        </select>
       </div>
 
       <div class="form-group">
@@ -56,7 +60,6 @@
           id="dificuldade"
           name="dificuldade"
           [(ngModel)]="route.dificuldade"
-          required
         >
           <option value="">Seleciona uma opção</option>
           <option value="Fácil">Fácil</option>
@@ -67,14 +70,18 @@
 
       <div class="form-group">
         <label for="categoria">Categoria</label>
-        <input
+        <select
           id="categoria"
-          type="text"
           name="categoria"
           [(ngModel)]="route.categoria"
-          placeholder="Ex: Natureza, Cultura, Gastronomia"
-          required
-        />
+        >
+          <option value="">Seleciona uma categoria</option>
+          <option value="Cultural">Cultural</option>
+          <option value="Natureza">Natureza</option>
+          <option value="Gastronomia">Gastronomia</option>
+          <option value="Urbano">Urbano</option>
+          <option value="Familiar">Familiar</option>
+        </select>
       </div>
 
       <div class="points-section">

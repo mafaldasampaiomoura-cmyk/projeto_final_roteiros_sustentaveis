@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService, LoginResponse } from '../../services/auth';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-login',
@@ -12,28 +12,37 @@ import { Router } from '@angular/router';
 export class Login {
   email = '';
   password = '';
+  errorMessage = signal('');
+  successMessage = signal('')
+
 
   constructor(
     private authService: AuthService,
     private router: Router
   ) {}
 
-  onSubmit() {
-    this.authService.login(this.email, this.password).subscribe({
-      next: (response: LoginResponse) => {
-        console.log('LOGIN OK:', response);
+  onSubmit(): void {
+    this.errorMessage.set('');
 
+    if (!this.email.trim() || !this.password.trim()) {
+      this.errorMessage.set('Preenche o email e a palavra-passe.');
+      return;
+    }
+
+    if (!this.email.includes('@')) {
+      this.errorMessage.set('Introduz um email válido.');
+      return;
+    }
+
+    this.authService.login(this.email, this.password).subscribe({
+      next: (response: any) => {
         localStorage.setItem('session', JSON.stringify(response.session));
         localStorage.setItem('user', JSON.stringify(response.user));
-
-        this.authService.getMe().subscribe(res => { //faz login, guarda o token, chame o /me automaticamente e o console mostra user vindo do backend 
-          console.log ('USER FROM /me:', res)
-        });
-
-        this.router.navigate(['/routes']); //redireciona para o routes.
+        this.router.navigate(['/routes']);
       },
-      error: (error) => {
-        console.error('LOGIN ERROR:', error);
+      error: (error: any) => {
+        console.error('Erro no login:', error);
+        this.errorMessage.set('Email ou palavra-passe incorretos.');
       },
     });
   }

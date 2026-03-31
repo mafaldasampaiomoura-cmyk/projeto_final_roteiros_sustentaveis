@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Navbar } from '../../components/navbar/navbar';
@@ -12,7 +12,7 @@ import { RoutePointsService } from '../../services/route-points';
   styleUrl: './edit-route.css',
 })
 export class EditRoute implements OnInit {
-  route: any = null;
+  currentRoute: any = null;
 
   newPoint = {
     name: '',
@@ -25,7 +25,8 @@ export class EditRoute implements OnInit {
     private activatedRoute: ActivatedRoute,
     private routesService: RoutesService,
     private routePointsService: RoutePointsService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -38,31 +39,51 @@ export class EditRoute implements OnInit {
 
   loadRoute(id: string): void {
     this.routesService.getRouteById(id).subscribe({
-      next: (data: any) => {
-        this.route = data;
+      next: (response: any) => {
+        console.log('EDIT RESPONSE:', response);
+        this.currentRoute = response;
+
+        const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
+
+        if (this.currentRoute.user_id !== storedUser.id) {
+          alert('Não tens permissão para editar este roteiro.');
+          this.router.navigate(['/routes', this.currentRoute.id]);
+          return;
+        }
+        
+        const nextOrder = (this.currentRoute.points?.length || 0) + 1; 
+
+        this.newPoint = {
+          name: '',
+          descricao: '',
+          morada: '', 
+          ordem: nextOrder,
+        }
+        console.log('CURRENT ROUTE FINAL:', this.currentRoute);
+        this.cdr.detectChanges();
       },
-      error: (error: any) => {
-        console.error('Erro ao carregar roteiro', error);
+      error: (error) => {
+        console.error('Erro ao carregar roteiro:', error);
       },
     });
   }
 
   updateRoute(): void {
-    if (!this.route?.id) return;
+    if (!this.currentRoute?.id) return;
 
     const routeData = {
-      titulo: this.route.titulo,
-      descricao: this.route.descricao,
-      duracao: this.route.duracao,
-      dificuldade: this.route.dificuldade,
-      cidade: this.route.cidade,
-      categoria: this.route.categoria,
+      titulo: this.currentRoute.titulo,
+      descricao: this.currentRoute.descricao,
+      duracao: this.currentRoute.duracao,
+      dificuldade: this.currentRoute.dificuldade,
+      cidade: this.currentRoute.cidade,
+      categoria: this.currentRoute.categoria,
     };
 
-    this.routesService.updateRoute(this.route.id, routeData).subscribe({
+    this.routesService.updateRoute(this.currentRoute.id, routeData).subscribe({
       next: () => {
         alert('Roteiro atualizado com sucesso.');
-        this.router.navigate(['/routes', this.route.id]);
+        this.router.navigate(['/routes', this.currentRoute.id]);
       },
       error: (err: any) => {
         console.error('Erro ao atualizar roteiro', err);
@@ -72,10 +93,10 @@ export class EditRoute implements OnInit {
   }
 
   addPoint(): void {
-    if (!this.route?.id) return;
+    if (!this.currentRoute?.id) return;
 
     const pointData = {
-      route_id: this.route.id,
+      route_id: this.currentRoute.id,
       name: this.newPoint.name,
       descricao: this.newPoint.descricao,
       morada: this.newPoint.morada,
@@ -90,10 +111,10 @@ export class EditRoute implements OnInit {
           name: '',
           descricao: '',
           morada: '',
-          ordem: (this.route?.points?.length || 0) + 1,
+          ordem: (this.currentRoute?.points?.length || 0) + 1,
         };
 
-        this.loadRoute(this.route.id);
+        this.loadRoute(String(this.currentRoute.id));
       },
       error: (error: any) => {
         console.error('Erro ao adicionar ponto', error);
@@ -109,7 +130,7 @@ export class EditRoute implements OnInit {
     this.routePointsService.deletePoint(pointId).subscribe({
       next: () => {
         alert('Ponto eliminado com sucesso.');
-        this.loadRoute(this.route.id);
+        this.loadRoute(String(this.currentRoute.id));
       },
       error: (error: any) => {
         console.error('Erro ao eliminar ponto', error);
