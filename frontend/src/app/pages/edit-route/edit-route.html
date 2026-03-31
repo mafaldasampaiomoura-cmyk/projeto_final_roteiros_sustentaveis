@@ -1,109 +1,188 @@
 <app-navbar></app-navbar>
 
-@if (route) {
-  <section style="max-width: 900px; margin: 40px auto; padding: 24px;">
-    <h1>Editar roteiro</h1>
+@if (currentRoute) {
+  <section class="create-route-page">
+    <div class="create-route-card">
+      <h1>Editar roteiro</h1>
+      <p>Atualiza os dados do roteiro e gere os pontos do itinerário.</p>
 
-    <div class="form-group">
-      <label>Título</label>
-      <input type="text" [(ngModel)]="route.titulo" name="titulo" />
-    </div>
+      <form (ngSubmit)="updateRoute()">
+        <div class="form-group">
+          <label for="titulo">Título</label>
+          <input
+            id="titulo"
+            type="text"
+            name="titulo"
+            [(ngModel)]="currentRoute.titulo"
+            required
+          />
+        </div>
 
-    <div class="form-group">
-      <label>Descrição</label>
-      <textarea [(ngModel)]="route.descricao" name="descricao"></textarea>
-    </div>
+        <div class="form-group">
+          <label for="descricao">Descrição</label>
+          <textarea
+            id="descricao"
+            name="descricao"
+            [(ngModel)]="currentRoute.descricao"
+          ></textarea>
+        </div>
 
-    <div class="form-group">
-      <label>Cidade</label>
-      <input type="text" [(ngModel)]="route.cidade" name="cidade" />
-    </div>
+        <div class="form-group">
+          <label for="cidade">Cidade</label>
+          <input
+            id="cidade"
+            type="text"
+            name="cidade"
+            [(ngModel)]="currentRoute.cidade"
+            required
+          />
+        </div>
 
-    <div class="form-group">
-      <label>Duração</label>
-      <input type="text" [(ngModel)]="route.duracao" name="duracao" />
-    </div>
+        <div class="form-group">
+          <label for="duracao">Duração</label>
+          <select
+            id="duracao"
+            name="duracao"
+            [(ngModel)]="currentRoute.duracao"
+          >
+            <option value="">Seleciona uma duração</option>
+            <option value="Menos de 1 hora">Menos de 1 hora</option>
+            <option value="1 a 2 horas">1 a 2 horas</option>
+            <option value="2 a 4 horas">2 a 4 horas</option>
+            <option value="Meio Dia">Meio Dia</option>
+            <option value="Dia inteiro">Dia inteiro</option>
+          </select>
+        </div>
 
-    <div class="form-group">
-      <label>Dificuldade</label>
-      <input type="text" [(ngModel)]="route.dificuldade" name="dificuldade" />
-    </div>
+        <div class="form-group">
+          <label for="dificuldade">Dificuldade</label>
+          <select
+            id="dificuldade"
+            name="dificuldade"
+            [(ngModel)]="currentRoute.dificuldade"
+          >
+            <option value="">Seleciona uma opção</option>
+            <option value="Fácil">Fácil</option>
+            <option value="Média">Média</option>
+            <option value="Difícil">Difícil</option>
+          </select>
+        </div>
 
-    <div class="form-group">
-      <label>Categoria</label>
-      <input type="text" [(ngModel)]="route.categoria" name="categoria" />
-    </div>
+        <div class="form-group">
+          <label for="categoria">Categoria</label>
+          <select
+            id="categoria"
+            name="categoria"
+            [(ngModel)]="currentRoute.categoria"
+          >
+            <option value="">Seleciona uma categoria</option>
+            <option value="Cultural">Cultural</option>
+            <option value="Natureza">Natureza</option>
+            <option value="Gastronomia">Gastronomia</option>
+            <option value="Urbano">Urbano</option>
+            <option value="Familiar">Familiar</option>
+          </select>
+        </div>
 
-    <button type="button" (click)="updateRoute()">Guardar alterações</button>
+        <button type="submit">Guardar alterações</button>
+      </form>
 
-    <hr style="margin: 32px 0;" />
+      <div class="points-section">
+        <div class="points-header">
+          <h2>Pontos do itinerário</h2>
+        </div>
 
-    <h2>Pontos do itinerário</h2>
+        @if (currentRoute.points && currentRoute.points.length > 0) {
+          @for (point of currentRoute.points; track point.id) {
+            <div class="point-card">
+              <div class="point-card-top">
+                <h3>Ponto {{ point.ordem }}</h3>
+              </div>
 
-    @if (route.points && route.points.length > 0) {
-      <div style="display: grid; gap: 16px; margin-bottom: 24px;">
-        @for (point of route.points; track point.id) {
-          <div style="border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px;">
-            <p><strong>Ordem:</strong> {{ point.ordem }}</p>
-            <p><strong>Nome:</strong> {{ point.nome }}</p>
-            <p><strong>Descrição:</strong> {{ point.descricao }}</p>
-            <p><strong>Morada:</strong> {{ point.morada }}</p>
+              <div class="form-group">
+                <label>Nome</label>
+                <p class="point-text">{{ point.nome }}</p>
+              </div>
 
-            <button type="button" (click)="deletePoint(point.id)">
-              Eliminar ponto
-            </button>
-          </div>
+              <div class="form-group">
+                <label>Descrição</label>
+                <p class="point-text">{{ point.descricao || 'Sem descrição' }}</p>
+              </div>
+
+              <div class="form-group">
+                <label>Nome do local / localização</label>
+                <p class="point-text">{{ point.morada || 'Sem localização' }}</p>
+              </div>
+
+              <button
+                type="button"
+                class="remove-button"
+                (click)="deletePoint(point.id)"
+              >
+                Eliminar ponto
+              </button>
+            </div>
+          }
+        } @else {
+          <p>Este roteiro ainda não tem pontos.</p>
         }
       </div>
-    } @else {
-      <p>Este roteiro ainda não tem pontos.</p>
-    }
 
-    <h2>Adicionar novo ponto</h2>
+      <div class="points-section">
+        <div class="points-header">
+          <h2>Adicionar novo ponto</h2>
+        </div>
 
-    <form (ngSubmit)="addPoint()">
-      <div class="form-group">
-        <label for="point-name">Nome</label>
-        <input
-          id="point-name"
-          type="text"
-          name="point-name"
-          [(ngModel)]="newPoint.name"
-          required
-        />
+        <form (ngSubmit)="addPoint()">
+          <div class="point-card">
+            <div class="form-group">
+              <label for="point-name">Nome</label>
+              <input
+                id="point-name"
+                type="text"
+                name="point-name"
+                [(ngModel)]="newPoint.name"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="point-descricao">Descrição</label>
+              <textarea
+                id="point-descricao"
+                name="point-descricao"
+                [(ngModel)]="newPoint.descricao"
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="point-morada">Nome do local / localização</label>
+              <input
+                id="point-morada"
+                type="text"
+                name="point-morada"
+                [(ngModel)]="newPoint.morada"
+                placeholder="Ex: Sé de Braga, Bom Jesus do Monte, Torre Eiffel"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="point-ordem">Ordem</label>
+              <input
+                id="point-ordem"
+                type="number"
+                name="point-ordem"
+                [(ngModel)]="newPoint.ordem"
+                readonly
+              />
+            </div>
+          </div>
+
+          <button type="submit">Adicionar ponto</button>
+        </form>
       </div>
-
-      <div class="form-group">
-        <label for="point-descricao">Descrição</label>
-        <textarea
-          id="point-descricao"
-          name="point-descricao"
-          [(ngModel)]="newPoint.descricao"
-        ></textarea>
-      </div>
-
-      <div class="form-group">
-        <label for="point-morada">Morada</label>
-        <input
-          id="point-morada"
-          type="text"
-          name="point-morada"
-          [(ngModel)]="newPoint.morada"
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="point-ordem">Ordem</label>
-        <input
-          id="point-ordem"
-          type="number"
-          name="point-ordem"
-          [(ngModel)]="newPoint.ordem"
-          required
-        />
-      </div>
-
-      <button type="submit">Adicionar ponto</button>
-    </form>
+    </div>
   </section>
+} @else {
+  <p>Roteiro ainda não carregou.</p>
 }

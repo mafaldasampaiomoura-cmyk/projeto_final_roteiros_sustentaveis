@@ -60,6 +60,15 @@ export class CreateRoute {
   }
 
   createRoute(): void {
+    const cleanedRoute = {
+      titulo: this.route.titulo.trim(),
+      descricao: this.route.descricao.trim(),
+      cidade: this.route.cidade.trim(),
+      duracao: this.route.duracao,
+      dificuldade: this.route.dificuldade,
+      categoria: this.route.categoria,
+    };
+
     const validPoints = this.points
       .filter((point) => point.name.trim())
       .map((point, index) => ({
@@ -69,7 +78,7 @@ export class CreateRoute {
         ordem: index + 1,
       }));
 
-    this.routesService.createRoute(this.route).subscribe({
+    this.routesService.createRoute(cleanedRoute).subscribe({
       next: (response: any) => {
         console.log('CREATE ROUTE RESPONSE:', response);
 
@@ -84,13 +93,13 @@ export class CreateRoute {
 
         if (validPoints.length === 0) {
           alert('Roteiro criado com sucesso.');
-          this.router.navigate(['/routes/edit', routeId]);
+          this.router.navigate(['/routes', routeId]);
           return;
         }
 
         const requests = validPoints.map((point) =>
           this.routePointsService.createPoint({
-            route_id: routeId,
+            route_id: String(routeId),
             name: point.name,
             descricao: point.descricao,
             morada: point.morada,
@@ -119,3 +128,4 @@ export class CreateRoute {
     });
   }
 }
+  

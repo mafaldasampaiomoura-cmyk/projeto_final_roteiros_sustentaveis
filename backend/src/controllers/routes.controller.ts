@@ -64,16 +64,9 @@ export const createRoute = async (req: Request, res: Response) => {
   const { titulo, descricao, duracao, dificuldade, cidade, categoria } = req.body;
   const user = res.locals.user;
 
-  if (
-    !titulo?.trim() ||
-    !descricao?.trim() ||
-    !duracao?.trim() ||
-    !dificuldade?.trim() ||
-    !cidade?.trim() ||
-    !categoria?.trim()
-  ) {
+  if (!titulo?.trim() || !cidade?.trim()) {
     return res.status(400).json({
-      message: 'titulo, descricao, duracao, dificuldade, cidade e categoria são obrigatórios',
+      message: 'titulo e cidade são obrigatórios',
     });
   }
 
@@ -81,11 +74,11 @@ export const createRoute = async (req: Request, res: Response) => {
     .from('routes')
     .insert({
       titulo: titulo.trim(),
-      descricao: descricao.trim(),
-      duracao: duracao.trim(),
-      dificuldade: dificuldade.trim(),
+      descricao: descricao?.trim() || '',
+      duracao: duracao?.trim() || '',
+      dificuldade: dificuldade?.trim() || '',
       cidade: cidade.trim(),
-      categoria: categoria.trim(),
+      categoria: categoria?.trim() || '',
       user_id: user.id,
     })
     .select()

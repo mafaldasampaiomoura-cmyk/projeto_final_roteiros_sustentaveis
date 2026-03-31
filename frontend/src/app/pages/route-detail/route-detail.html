@@ -4,6 +4,8 @@
   @if (route !== null) {
     <div class="route-detail-card">
       <p class="detail-label">Roteiro</p>
+
+      
       <h1>{{ route.titulo }}</h1>
       <p class="route-description">{{ route.descricao }}</p>
 
@@ -15,15 +17,11 @@
       </div>
 
       <div class="detail-actions">
-        <button type="button" (click)="addToFavorites()">
-          Adicionar aos favoritos
-        </button>
-
-        <a [routerLink]="['/routes/edit', route.id]">Editar roteiro</a>
-
-        <button type="button" class="delete-button" (click)="deleteRoute()">
-          Eliminar roteiro
-        </button>
+        <button type="button" (click)="addToFavorites()">Adicionar aos favoritos</button>
+        @if (isOwner) {
+          <button [routerLink]="['/routes/edit', route.id]">Editar roteiro</button>
+          <button (click)="deleteRoute()">Eliminar roteiro</button>
+        }
       </div>
     </div>
 

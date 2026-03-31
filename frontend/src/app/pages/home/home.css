@@ -1,17 +1,20 @@
 .public-topbar {
-  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 22px 24px 10px;
+  display: flex; 
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0 30px;
   gap: 20px;
 }
 
 .public-topbar .brand {
   text-decoration: none;
-  font-size: 28px;
+  font-size: 34px;
   font-weight: 800;
   color: #14532d;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
+  transition: 0.2s ease;
 }
 
 .public-actions {

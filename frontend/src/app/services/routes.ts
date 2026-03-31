@@ -2,23 +2,33 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environments';
 
-export interface CreateRouteResponse {
-  message: string;
-  route: any;
-}
-
 @Injectable({
   providedIn: 'root',
 })
 export class RoutesService {
   constructor(private http: HttpClient) {}
 
+  private getToken(): string {
+    const session = JSON.parse(localStorage.getItem('session') || '{}');
+    return session.access_token || '';
+  }
+
+  private getAuthHeaders() {
+    return {
+      Authorization: `Bearer ${this.getToken()}`,
+    };
+  }
+
   getRoutes() {
-    return this.http.get(`${environment.apiUrl}/routes`);
+    return this.http.get(`${environment.apiUrl}/routes`, {
+      headers: this.getAuthHeaders(),
+    });
   }
 
   getRouteById(id: string) {
-    return this.http.get(`${environment.apiUrl}/routes/${id}`);
+    return this.http.get(`${environment.apiUrl}/routes/${id}`, {
+      headers: this.getAuthHeaders(),
+    });
   }
 
   createRoute(routeData: {
@@ -29,18 +39,9 @@ export class RoutesService {
     cidade: string;
     categoria: string;
   }) {
-    const session = JSON.parse(localStorage.getItem('session') || '{}');
-    const token = session.access_token;
-
-    return this.http.post<CreateRouteResponse>(
-      `${environment.apiUrl}/routes`,
-      routeData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    return this.http.post(`${environment.apiUrl}/routes`, routeData, {
+      headers: this.getAuthHeaders(),
+    });
   }
 
   updateRoute(
@@ -54,24 +55,14 @@ export class RoutesService {
       categoria: string;
     }
   ) {
-    const session = JSON.parse(localStorage.getItem('session') || '{}');
-    const token = session.access_token;
-
     return this.http.put(`${environment.apiUrl}/routes/${id}`, routeData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: this.getAuthHeaders(),
     });
   }
 
   deleteRoute(id: string) {
-    const session = JSON.parse(localStorage.getItem('session') || '{}');
-    const token = session.access_token;
-
     return this.http.delete(`${environment.apiUrl}/routes/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: this.getAuthHeaders(),
     });
   }
 }

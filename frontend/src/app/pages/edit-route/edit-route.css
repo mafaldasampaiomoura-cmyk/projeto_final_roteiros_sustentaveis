@@ -1,4 +1,4 @@
-.edit-route-page {
+.create-route-page {
   min-height: calc(100vh - 80px);
   display: flex;
   justify-content: center;
@@ -6,7 +6,7 @@
   background: #f5f7f6;
 }
 
-.edit-route-card {
+.create-route-card {
   width: 100%;
   max-width: 760px;
   background: #ffffff;
@@ -16,25 +16,19 @@
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
 }
 
-.edit-route-card h1 {
+.create-route-card h1 {
   margin: 0 0 10px;
   font-size: 30px;
   color: #1b4332;
 }
 
-.edit-route-card h2 {
-  margin: 0 0 16px;
-  font-size: 24px;
-  color: #1b4332;
-}
-
-.edit-route-card p {
+.create-route-card p {
   margin: 0 0 24px;
   color: #6b7280;
   line-height: 1.5;
 }
 
-.edit-route-card form {
+.create-route-card form {
   display: grid;
   gap: 18px;
 }
@@ -60,6 +54,7 @@
   font-size: 15px;
   outline: none;
   background: #ffffff;
+  box-sizing: border-box;
 }
 
 .form-group input:focus,
@@ -73,30 +68,56 @@
   min-height: 110px;
 }
 
-.divider {
-  margin: 32px 0;
-  border: none;
-  border-top: 1px solid #e5e7eb;
-}
-
-.points-list {
+.points-section {
+  margin-top: 28px;
   display: grid;
   gap: 16px;
-  margin-bottom: 8px;
 }
 
-.point-item {
+.points-header {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 16px;
-  background: #fafafa;
+  align-items: center;
+  gap: 12px;
 }
 
-.point-item p {
-  margin: 0 0 8px;
+.points-header h2 {
+  margin: 0;
+  font-size: 22px;
+  color: #1b4332;
+}
+
+.point-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 20px;
+  background: #fafafa;
+  display: grid;
+  gap: 16px;
+}
+
+.point-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.point-card-top h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #1b4332;
+}
+
+.point-text {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #111827;
+  min-height: 24px;
+  line-height: 1.5;
 }
 
 button {
@@ -116,49 +137,53 @@ button:hover {
   opacity: 0.95;
 }
 
-.delete-point-button {
+.secondary-button,
+.remove-button {
   width: auto;
-  height: fit-content;
-  background: #b91c1c;
   padding: 10px 14px;
+  font-size: 14px;
 }
 
-/* Tablet */
+.secondary-button {
+  background: #2d6a4f;
+}
+
+.remove-button {
+  background: #b91c1c;
+}
+
 @media (max-width: 900px) {
-  .edit-route-page {
+  .create-route-page {
     padding: 24px 16px 40px;
   }
 
-  .edit-route-card {
+  .create-route-card {
     padding: 24px;
   }
 
-  .edit-route-card h1 {
+  .create-route-card h1 {
     font-size: 26px;
   }
 }
 
-/* Mobile */
 @media (max-width: 640px) {
-  .edit-route-card {
+  .create-route-card {
     padding: 20px;
     border-radius: 16px;
   }
 
-  .edit-route-card h1 {
+  .create-route-card h1 {
     font-size: 24px;
   }
 
-  .edit-route-card p {
+  .create-route-card p {
     font-size: 14px;
   }
 
-  .point-item {
+  .points-header,
+  .point-card-top {
     flex-direction: column;
-  }
-
-  .delete-point-button {
-    width: 100%;
+    align-items: stretch;
   }
 
   .form-group input,
@@ -166,5 +191,10 @@ button:hover {
   .form-group select,
   button {
     font-size: 14px;
+  }
+
+  .secondary-button,
+  .remove-button {
+    width: 100%;
   }
 }

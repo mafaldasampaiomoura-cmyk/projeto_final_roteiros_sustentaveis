@@ -19,6 +19,7 @@ import { FavoritesService } from '../../services/favorites';
 export class RouteDetail implements OnInit, OnDestroy {
   routeId: string | null = null;
   route: any = null;
+  isOwner = false;
   private routeSubscription?: Subscription;
 
   constructor(
@@ -42,22 +43,27 @@ export class RouteDetail implements OnInit, OnDestroy {
 
   loadRoute(id: string): void {
     this.route = null;
+    this.isOwner = false;
     this.cdr.detectChanges();
 
     this.routesService.getRouteById(id).subscribe({
-      next: (data: any) => {
-        console.log('DETAIL RESPONSE:', data);
+        next: (data: any) => {
+          console.log('DETAIL RESPONSE:', data);
+          console.log('DETAIL POINTS:', data.points || data.route?.points || []);
 
-        const routeData = data.route || data;
-        const pointsData = data.points || routeData.points || [];
+          const routeData = data.route || data;
+          const pointsData = data.points || routeData.points || [];
 
-        this.route = {
-          ...routeData,
-          points: pointsData,
-        };
+          this.route = {
+            ...routeData,
+            points: pointsData,
+          };
 
-        this.cdr.detectChanges();
-      },
+          const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
+          this.isOwner = this.route.user_id === storedUser.id;
+
+          this.cdr.detectChanges();
+        },
       error: (error: any) => {
         console.error('Erro ao carregar roteiro', error);
         this.cdr.detectChanges();
@@ -79,7 +85,7 @@ export class RouteDetail implements OnInit, OnDestroy {
   }
 
   deleteRoute(): void {
-    if (!this.route?.id) return;
+    if (!this.route?.id || !this.isOwner) return;
 
     const confirmDelete = confirm(
       'Tens a certeza que queres eliminar este roteiro?'
