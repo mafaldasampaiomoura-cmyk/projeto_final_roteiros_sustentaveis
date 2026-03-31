@@ -7,15 +7,16 @@ import { RouteDetail } from './pages/route-detail/route-detail';
 import { CreateRoute } from './pages/create-route/create-route';
 import { Favourites } from './pages/favourites/favourites';
 import { EditRoute } from './pages/edit-route/edit-route';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: Home },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
-  { path: 'routes', component: RoutesList },
-  { path: 'routes/edit/:id', component: EditRoute },
-  { path: 'routes/:id', component: RouteDetail },
-  { path: 'create-route', component: CreateRoute },
-  { path: 'favourites', component: Favourites },
+  { path: 'routes/edit/:id', component: EditRoute, canActivate: [authGuard] },
+  { path: 'routes/:id', component: RouteDetail, canActivate: [authGuard] },
+  { path: 'create-route', component: CreateRoute, canActivate: [authGuard] },
+  { path: 'favourites', component: Favourites, canActivate: [authGuard] },
+  { path: 'routes', component: RoutesList, canActivate: [authGuard] },
   { path: '**', redirectTo: '' },
 ];
