@@ -8,9 +8,9 @@ import { environment } from '../../environments/environments';
 export class FavoritesService {
   constructor(private http: HttpClient) {}
 
-  private getToken() {
+  private getToken(): string {
     const session = JSON.parse(localStorage.getItem('session') || '{}');
-    return session.access_token;
+    return session.access_token || '';
   }
 
   getFavorites() {
@@ -31,5 +31,13 @@ export class FavoritesService {
         },
       }
     );
+  }
+
+  removeFavorite(routeId: string) {
+    return this.http.delete(`${environment.apiUrl}/favourites/${routeId}`, {
+      headers: {
+        Authorization: `Bearer ${this.getToken()}`,
+      },
+    });
   }
 }

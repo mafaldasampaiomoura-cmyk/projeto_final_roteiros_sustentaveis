@@ -1,4 +1,37 @@
 <app-navbar></app-navbar>
 
-<h1>Os teus Favoritos</h1>
-<p>Descobre os teus favoritos</p>
+<section class="routes-page">
+  <h1>Os teus Favoritos</h1>
+  <p class="subtitle">Roteiros guardados no teu perfil</p>
+
+  @if (loading) {
+    <p class="loading-message">A carregar favoritos...</p>
+  } @else if (favourites.length > 0) {
+    <div class="routes-grid">
+      @for (favorite of favourites; track favorite.id) {
+        <div class="route-card">
+          <h2>{{ favorite.routes?.titulo }}</h2>
+          <p class="route-description">{{ favorite.routes?.descricao }}</p>
+
+          <div class="route-meta">
+            <span>{{ favorite.routes?.cidade }}</span>
+            <span>{{ favorite.routes?.duracao }}</span>
+            <span>{{ favorite.routes?.dificuldade }}</span>
+          </div>
+
+          <div class="actions">
+            <a class="detail-link" [routerLink]="['/routes', favorite.route_id]">
+              Ver detalhe
+            </a>
+
+            <button type="button" (click)="removeFavorite(favorite.route_id)">
+              Remover favorito
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <p class="empty-message">Ainda não tens favoritos guardados.</p>
+  }
+</section>

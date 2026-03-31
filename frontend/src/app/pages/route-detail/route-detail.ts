@@ -1,46 +1,108 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ChangeDetectorRef,
+} from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Navbar } from '../../components/navbar/navbar';
-import { ActivatedRoute } from '@angular/router';
 import { RoutesService } from '../../services/routes';
 import { FavoritesService } from '../../services/favorites';
 
 @Component({
   selector: 'app-route-detail',
-  imports: [Navbar],
+  imports: [Navbar, RouterLink],
   templateUrl: './route-detail.html',
   styleUrl: './route-detail.css',
 })
-export class RouteDetail implements OnInit {
+export class RouteDetail implements OnInit, OnDestroy {
   routeId: string | null = null;
   route: any = null;
+  private routeSubscription?: Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private routesService: RoutesService,
     private favoritesService: FavoritesService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.routeId = this.activatedRoute.snapshot.paramMap.get('id');
+    this.routeSubscription = this.activatedRoute.paramMap.subscribe((params) => {
+      const id = params.get('id');
 
-    if (this.routeId) {
-      this.routesService.getRouteById(this.routeId).subscribe((data: any) => {
-        console.log('ROTEIRO:', data);
-        this.route = data;
-      });
-    }
+      if (id) {
+        this.routeId = id;
+        this.loadRoute(id);
+      }
+    });
   }
-  
-  addToFavorites() {
-  if (!this.route) return;
 
-  this.favoritesService.addFavorite(this.route.id).subscribe({
-    next: (response) => {
-      console.log('FAVORITO ADICIONADO:', response);
-    },
-    error: (error) => {
-      console.error('ERRO AO ADICIONAR FAVORITO:', error);
-    },
-  });
-}
+  loadRoute(id: string): void {
+    this.route = null;
+    this.cdr.detectChanges();
+
+    this.routesService.getRouteById(id).subscribe({
+      next: (data: any) => {
+        console.log('DETAIL RESPONSE:', data);
+
+        const routeData = data.route || data;
+        const pointsData = data.points || routeData.points || [];
+
+        this.route = {
+          ...routeData,
+          points: pointsData,
+        };
+
+        this.cdr.detectChanges();
+      },
+      error: (error: any) => {
+        console.error('Erro ao carregar roteiro', error);
+        this.cdr.detectChanges();
+      },
+    });
+  }
+
+  addToFavorites(): void {
+    if (!this.route?.id) return;
+
+    this.favoritesService.addFavorite(this.route.id).subscribe({
+      next: () => {
+        alert('Roteiro adicionado aos favoritos.');
+      },
+      error: (error: any) => {
+        console.error('Erro ao adicionar favorito', error);
+      },
+    });
+  }
+
+  deleteRoute(): void {
+    if (!this.route?.id) return;
+
+    const confirmDelete = confirm(
+      'Tens a certeza que queres eliminar este roteiro?'
+    );
+
+    if (!confirmDelete) return;
+
+    this.routesService.deleteRoute(this.route.id).subscribe({
+      next: () => {
+        alert('Roteiro eliminado com sucesso.');
+        this.router.navigate(['/routes']);
+      },
+      error: (error: any) => {
+        console.error('Erro ao eliminar roteiro', error);
+      },
+    });
+  }
+
+  getGoogleMapsLink(address: string): string {
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+  }
+
+  ngOnDestroy(): void {
+    this.routeSubscription?.unsubscribe();
+  }
 }
