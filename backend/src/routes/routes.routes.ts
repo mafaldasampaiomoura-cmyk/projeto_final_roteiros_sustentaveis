@@ -65,8 +65,15 @@ router.get('/:id', authMiddleware, async (req, res) => {
 });
 
 router.post('/', authMiddleware, async (req, res) => {
-  const { titulo, descricao, duracao, dificuldade, cidade, categoria } =
-    req.body;
+  const {
+    titulo,
+    descricao,
+    duracao,
+    dificuldade,
+    cidade,
+    categoria,
+    image_url,
+  } = req.body;
 
   if (!titulo?.trim() || !cidade?.trim()) {
     return res.status(400).json({
@@ -87,6 +94,7 @@ router.post('/', authMiddleware, async (req, res) => {
         dificuldade: dificuldade?.trim() || '',
         cidade: cidade.trim(),
         categoria: categoria?.trim() || '',
+        image_url: image_url?.trim() || '',
         user_id: user.id,
         is_public: isAdmin,
       },
@@ -106,8 +114,17 @@ router.post('/', authMiddleware, async (req, res) => {
 
 router.put('/:id', authMiddleware, async (req, res) => {
   const { id } = req.params;
-  const { titulo, descricao, duracao, dificuldade, cidade, categoria } =
-    req.body;
+  const {
+    titulo,
+    descricao,
+    duracao,
+    dificuldade,
+    cidade,
+    categoria,
+    image_url,
+  } = req.body;
+
+  console.log('BODY RECEBIDO NO PUT', req.body)
 
   if (!titulo?.trim() || !cidade?.trim()) {
     return res.status(400).json({
@@ -142,6 +159,7 @@ router.put('/:id', authMiddleware, async (req, res) => {
       dificuldade: dificuldade?.trim() || '',
       cidade: cidade.trim(),
       categoria: categoria?.trim() || '',
+      image_url: image_url?.trim() || '',
     })
     .eq('id', id)
     .select()

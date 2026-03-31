@@ -38,6 +38,7 @@ export class RoutesService {
     dificuldade: string;
     cidade: string;
     categoria: string;
+    image_url: string;
   }) {
     return this.http.post(`${environment.apiUrl}/routes`, routeData, {
       headers: this.getAuthHeaders(),
@@ -53,6 +54,7 @@ export class RoutesService {
       dificuldade: string;
       cidade: string;
       categoria: string;
+      image_url: string;
     }
   ) {
     return this.http.put(`${environment.apiUrl}/routes/${id}`, routeData, {

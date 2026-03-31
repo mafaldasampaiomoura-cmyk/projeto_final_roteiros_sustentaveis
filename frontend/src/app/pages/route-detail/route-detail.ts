@@ -64,6 +64,7 @@ export class RouteDetail implements OnInit, OnDestroy {
 
           this.cdr.detectChanges();
         },
+
       error: (error: any) => {
         console.error('Erro ao carregar roteiro', error);
         this.cdr.detectChanges();

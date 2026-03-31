@@ -78,7 +78,10 @@ export class EditRoute implements OnInit {
       dificuldade: this.currentRoute.dificuldade,
       cidade: this.currentRoute.cidade,
       categoria: this.currentRoute.categoria,
+      image_url: this.currentRoute.image_url,
     };
+
+    console.log('ROUTE DATA TO UPDATE:', routeData);
 
     this.routesService.updateRoute(this.currentRoute.id, routeData).subscribe({
       next: () => {
