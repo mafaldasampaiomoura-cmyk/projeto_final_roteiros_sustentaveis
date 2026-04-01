@@ -1,159 +1,206 @@
-# API - Plataforma de Roteiros Sustentáveis
+# Roteiros Sustentáveis
 
 ## Descrição
 
-Esta API permite a gestão de utilizadores, roteiros turísticos e pontos de interesse associados a cada roteiro.
+**Roteiros Sustentáveis** é uma aplicação web de turismo sustentável que permite aos utilizadores descobrir, criar e gerir roteiros turísticos por diferentes cidades.
 
-O objetivo é suportar uma aplicação de turismo interativo, onde cada utilizador pode criar e gerir os seus próprios roteiros com vários pontos organizados.
+Atualmente, a aplicação inclui roteiros em destaque para **Braga** e **Lisboa**, permitindo também que cada utilizador crie os seus próprios percursos, organize pontos de interesse, consulte detalhes dos roteiros e guarde roteiros favoritos.
+
+O objetivo do projeto é promover uma experiência de descoberta mais consciente, valorizando o turismo local, os percursos pedonais e a exploração de locais de interesse com menor impacto ambiental.
+
+---
+
+## ODS Associado
+
+### ODS 8 — Trabalho Digno e Crescimento Económico
+
+Este projeto contribui para o **ODS 8** ao incentivar o turismo local sustentável, promovendo a descoberta de cidades, pontos de interesse e experiências que valorizam os territórios, dinamizam a economia local e incentivam formas de turismo mais responsáveis.
+
+---
+
+## Funcionalidades
+
+- Registo e login de utilizadores
+- Visualização de roteiros disponíveis
+- Consulta de detalhes de cada roteiro
+- Criação de novos roteiros
+- Edição de roteiros
+- Eliminação de roteiros
+- Adição de pontos de interesse a cada roteiro
+- Organização de pontos de interesse
+- Sistema de favoritos
+- Separação entre frontend e backend
+- Deploy do frontend e backend
 
 ---
 
 ## Tecnologias Utilizadas
 
+### Frontend
+- Angular
+- TypeScript
+- HTML
+- CSS
+
+### Backend
 - Node.js
 - Express
 - TypeScript
-- Supabase (Base de Dados + Autenticação)
-- GitHub Actions (CI)
+
+### Base de Dados e Autenticação
+- Supabase
+
+### Testes e Deploy
+- Vitest
+- GitHub Actions (CI/CD)
+- Vercel (Frontend)
+- Render (Backend)
 
 ---
 
-## Como correr o projeto
+## Estrutura do Projeto
 
-1. Clonar o repositório
+```bash
+projeto_final_roteiros_sustentaveis/
+│
+├── frontend/        # Aplicação Angular
+├── backend/         # API Node.js + Express
+└── .github/         # Workflows de CI/CD
+```
 
-git clone <url-do-repositorio>
+---
 
-2. Entrar na pasta do backend
+## Como correr o projeto localmente
 
+### 1. Clonar o repositório
+
+```bash
+git clone https://github.com/mafaldasampaiomoura-cmyk/projeto_final_roteiros_sustentaveis.git
+cd projeto_final_roteiros_sustentaveis
+```
+
+### 2. Configurar e correr o backend
+
+```bash
 cd backend
-
-3. Instalar dependências
-
 npm install
-
-4. Criar ficheiro `.env`
-
-SUPABASE_URL=your_url  
-SUPABASE_KEY=your_key  
-PORT=3000  
-
-5. Iniciar o servidor
-
 npm run dev
+```
 
-Servidor disponível em:
+O backend ficará disponível em:
 
-http://localhost:3000
+```bash
+http://localhost:3001
+```
+
+### 3. Criar o ficheiro `.env` no backend
+
+Dentro da pasta `backend`, cria um ficheiro chamado `.env` com este conteúdo:
+
+```env
+SUPABASE_URL=your_supabase_url
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+PORT=3001
+ADMIN_EMAIL=your_admin_email
+```
+
+### 4. Configurar e correr o frontend
+
+Abre outro terminal e executa:
+
+```bash
+cd frontend
+npm install
+ng serve
+```
+
+O frontend ficará disponível em:
+
+```bash
+http://localhost:4200
+```
+
+### 5. Configurar a ligação à API no frontend
+
+No ficheiro de environment do frontend, a API deve apontar para:
+
+```ts
+apiUrl: 'http://localhost:3001/api'
+```
 
 ---
 
-## Estrutura da API
-
-Base URL:
-
-/api
-
----
-
-## Endpoints
+## Endpoints principais da API
 
 ### Health Check
 
+```http
 GET /api/health
+```
+
+### Autenticação
+
+```http
+POST /api/auth/register
+POST /api/auth/login
+```
+
+### Roteiros
+
+```http
+GET /api/routes
+GET /api/routes/:id
+POST /api/routes
+PUT /api/routes/:id
+DELETE /api/routes/:id
+```
+
+### Pontos de Interesse
+
+```http
+GET /api/route-points/:routeId
+POST /api/route-points
+DELETE /api/route-points/:id
+```
+
+### Favoritos
+
+```http
+GET /api/favourites/:userId
+POST /api/favourites
+DELETE /api/favourites/:id
+```
 
 ---
 
-### Auth
+## Deploy
 
-POST /api/auth/register  
-POST /api/auth/login  
+O projeto encontra-se preparado para deploy separado:
 
----
-
-### Routes
-
-GET /api/routes  
-GET /api/routes/:id  
-POST /api/routes  
-PUT /api/routes/:id  
-DELETE /api/routes/:id  
-
-- GET lista roteiros  
-- GET by id devolve roteiro + pontos  
-- POST cria roteiro  
-- PUT atualiza roteiro  
-- DELETE elimina roteiro  
-
-Regras:
-- requer autenticação (exceto GET)  
-- só o dono pode editar/eliminar  
+- **Frontend:** Vercel
+- **Backend:** Render
 
 ---
 
-### Route Points
+## Testes
 
-GET /api/route-points  
-POST /api/route-points  
-DELETE /api/route-points/:id  
+O frontend inclui testes unitários com **Vitest**.
 
-- GET lista pontos  
-- POST cria ponto  
-- DELETE elimina ponto  
+Para correr os testes no frontend:
 
-Regras:
-- requer autenticação (POST, DELETE)  
-- só podes mexer nos teus roteiros  
+```bash
+cd frontend
+npm run test
+```
 
 ---
 
-## Autenticação
+## Objetivo Académico
 
-Header obrigatório nas rotas protegidas:
-
-Authorization: Bearer <token>
+Este projeto foi desenvolvido no âmbito do **Projeto Final de Programação**, com o objetivo de aplicar conhecimentos de desenvolvimento frontend e backend, autenticação, bases de dados, organização de API, deploy e integração entre sistemas.
 
 ---
 
-## Base de Dados
+## Autora
 
-Tabelas principais:
-
-- profiles  
-- routes  
-- route_points  
-
-### Relações
-
-- 1 user → N routes  
-- 1 route → N points  
-
----
-
-## Estado Atual
-
-- API funcional  
-- autenticação implementada  
-- CRUD de routes completo  
-- endpoints de route_points funcionais  
-- permissões implementadas  
-- CI configurado  
-- testes via Postman  
-
----
-
-## Melhorias Futuras
-
-- validação avançada  
-- paginação e filtros  
-- imagens  
-- favoritos  
-- reviews  
-- Docker  
-- frontend  
-
----
-
-## Autor
-
-Projeto académico.
+**Mafalda Moura**
