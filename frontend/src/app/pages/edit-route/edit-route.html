@@ -1,0 +1,199 @@
+<app-navbar></app-navbar>
+
+@if (currentRoute) {
+  <section class="create-route-page">
+    <div class="create-route-card">
+      <h1>Editar roteiro</h1>
+      <p>Atualiza os dados do roteiro e gere os pontos do itinerário.</p>
+
+      <form (ngSubmit)="updateRoute()">
+        <div class="form-group">
+          <label for="titulo">Título</label>
+          <input
+            id="titulo"
+            type="text"
+            name="titulo"
+            [(ngModel)]="currentRoute.titulo"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="descricao">Descrição</label>
+          <textarea
+            id="descricao"
+            name="descricao"
+            [(ngModel)]="currentRoute.descricao"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="cidade">Cidade</label>
+          <input
+            id="cidade"
+            type="text"
+            name="cidade"
+            [(ngModel)]="currentRoute.cidade"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="duracao">Duração</label>
+          <select
+            id="duracao"
+            name="duracao"
+            [(ngModel)]="currentRoute.duracao"
+          >
+            <option value="">Seleciona uma duração</option>
+            <option value="Menos de 1 hora">Menos de 1 hora</option>
+            <option value="1 a 2 horas">1 a 2 horas</option>
+            <option value="2 a 4 horas">2 a 4 horas</option>
+            <option value="Meio Dia">Meio Dia</option>
+            <option value="Dia inteiro">Dia inteiro</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="dificuldade">Dificuldade</label>
+          <select
+            id="dificuldade"
+            name="dificuldade"
+            [(ngModel)]="currentRoute.dificuldade"
+          >
+            <option value="">Seleciona uma opção</option>
+            <option value="Fácil">Fácil</option>
+            <option value="Média">Média</option>
+            <option value="Difícil">Difícil</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="categoria">Categoria</label>
+          <select
+            id="categoria"
+            name="categoria"
+            [(ngModel)]="currentRoute.categoria"
+          >
+            <option value="">Seleciona uma categoria</option>
+            <option value="Cultural">Cultural</option>
+            <option value="Natureza">Natureza</option>
+            <option value="Gastronomia">Gastronomia</option>
+            <option value="Urbano">Urbano</option>
+            <option value="Familiar">Familiar</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="image_url">Imagem (URL)</label>
+          <input
+            id="image_url"
+            type="text"
+            name="image_url"
+            [(ngModel)]="currentRoute.image_url"
+            placeholder="https://..."
+          />
+        </div>
+
+        <button type="submit">Guardar alterações</button>
+      </form>
+
+      <div class="points-section">
+        <div class="points-header">
+          <h2>Pontos do itinerário</h2>
+        </div>
+
+        @if (currentRoute.points && currentRoute.points.length > 0) {
+          @for (point of currentRoute.points; track point.id) {
+            <div class="point-card">
+              <div class="point-card-top">
+                <h3>Ponto {{ point.ordem }}</h3>
+              </div>
+
+              <div class="form-group">
+                <label>Nome</label>
+                <p class="point-text">{{ point.nome }}</p>
+              </div>
+
+              <div class="form-group">
+                <label>Descrição</label>
+                <p class="point-text">{{ point.descricao || 'Sem descrição' }}</p>
+              </div>
+
+              <div class="form-group">
+                <label>Nome do local / localização</label>
+                <p class="point-text">{{ point.morada || 'Sem localização' }}</p>
+              </div>
+
+              <button
+                type="button"
+                class="remove-button"
+                (click)="deletePoint(point.id)"
+              >
+                Eliminar ponto
+              </button>
+            </div>
+          }
+        } @else {
+          <p>Este roteiro ainda não tem pontos.</p>
+        }
+      </div>
+
+      <div class="points-section">
+        <div class="points-header">
+          <h2>Adicionar novo ponto</h2>
+        </div>
+
+        <form (ngSubmit)="addPoint()">
+          <div class="point-card">
+            <div class="form-group">
+              <label for="point-name">Nome</label>
+              <input
+                id="point-name"
+                type="text"
+                name="point-name"
+                [(ngModel)]="newPoint.name"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="point-descricao">Descrição</label>
+              <textarea
+                id="point-descricao"
+                name="point-descricao"
+                [(ngModel)]="newPoint.descricao"
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="point-morada">Nome do local / localização</label>
+              <input
+                id="point-morada"
+                type="text"
+                name="point-morada"
+                [(ngModel)]="newPoint.morada"
+                placeholder="Ex: Sé de Braga, Bom Jesus do Monte, Torre Eiffel"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="point-ordem">Ordem</label>
+              <input
+                id="point-ordem"
+                type="number"
+                name="point-ordem"
+                [(ngModel)]="newPoint.ordem"
+                readonly
+              />
+            </div>
+          </div>
+
+          <button type="submit">Adicionar ponto</button>
+        </form>
+      </div>
+    </div>
+  </section>
+} @else {
+  <p>Roteiro ainda não carregou.</p>
+}

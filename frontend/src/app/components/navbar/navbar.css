@@ -1,0 +1,172 @@
+.navbar-wrapper {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.navbar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  text-decoration: none;
+  font-size: 26px;
+  font-weight: 800;
+  color: #14532d;
+  letter-spacing: -0.04em;
+  transition: 0.2s ease;
+  flex-shrink: 0;
+}
+
+.brand:hover {
+  color: #166534;
+}
+
+.nav-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  flex: 1;
+  min-width: 0;
+}
+
+.nav-center a {
+  text-decoration: none;
+  color: #4b5563;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 8px 0;
+  border-bottom: 2px solid transparent;
+  transition: 0.2s ease;
+}
+
+.nav-center a:hover {
+  color: #166534;
+}
+
+.active-link {
+  color: #166534 !important;
+  border-bottom: 2px solid #166534 !important;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.user-email {
+  font-size: 14px;
+  font-weight: 600;
+  color: #4b5563;
+  max-width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.auth-button,
+.logout-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.2s ease;
+  border: none;
+  background: #14532d;
+  color: #ffffff;
+}
+
+.auth-button:hover,
+.logout-button:hover {
+  background: #166534;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 900px) {
+  .navbar {
+    padding: 16px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .brand {
+    font-size: 24px;
+  }
+
+  .nav-center {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .nav-right {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .user-email {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar {
+    padding: 14px 16px;
+    gap: 14px;
+  }
+
+  .brand {
+    font-size: 22px;
+  }
+
+  .nav-center {
+    gap: 12px 16px;
+  }
+
+  .nav-center a {
+    font-size: 14px;
+    padding: 6px 0;
+  }
+
+  .nav-right {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .user-email {
+    font-size: 13px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    word-break: break-word;
+  }
+
+  .auth-button,
+  .logout-button {
+    width: 100%;
+    max-width: none;
+  }
+}

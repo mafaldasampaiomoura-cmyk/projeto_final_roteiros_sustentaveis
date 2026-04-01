@@ -1,0 +1,46 @@
+<app-navbar></app-navbar>
+
+<section class="routes-page">
+  <h1>Explorar Roteiros</h1>
+  <p class="subtitle">Lista de roteiros disponíveis</p>
+
+  @if (loading) {
+    <p>A carregar roteiros...</p>
+  } @else if (routesList.length > 0) {
+    <div class="routes-grid">
+      @for (route of routesList; track route.id) {
+        <div class="route-card">
+
+          @if (route.image_url) {
+            <img
+              [src]="route.image_url"
+              [alt]="route.titulo"
+              class="route-card-image"
+            />
+          }
+
+          <h2>{{ route.titulo }}</h2>
+          <p class="route-description">{{ route.descricao }}</p>
+
+          <div class="route-meta">
+            <span>{{ route.cidade }}</span>
+
+            @if (route.duracao) {
+              <span>{{ route.duracao }}</span>
+            }
+
+            @if (route.dificuldade) {
+              <span>{{ route.dificuldade }}</span>
+            }
+          </div>
+
+          <a class="detail-link" [routerLink]="['/routes', route.id]">
+            Ver detalhe
+          </a>
+        </div>
+      }
+    </div>
+  } @else {
+    <p>Não existem roteiros para mostrar.</p>
+  }
+</section>

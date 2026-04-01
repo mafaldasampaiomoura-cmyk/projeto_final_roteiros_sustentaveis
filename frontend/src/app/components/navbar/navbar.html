@@ -1,0 +1,30 @@
+<header class="navbar-wrapper">
+  <nav class="navbar">
+    <a class="brand" [routerLink]="isLoggedIn ? '/routes' : '/'">Roteiros Sustentáveis</a>
+
+    <div class="nav-center">
+      <a routerLink="/routes" routerLinkActive="active-link">Explorar</a>
+
+      @if (isLoggedIn) {
+        <a routerLink="/favourites" routerLinkActive="active-link">Favoritos</a>
+        <a routerLink="/create-route" routerLinkActive="active-link">Criar Roteiro</a>
+      }
+    </div>
+
+    <div class="nav-right">
+      @if (isLoggedIn) {
+        <span class="user-email">{{ userEmail }}</span>
+
+        <button
+          type="button"
+          class="auth-button logout-button"
+          (click)="logout()"
+        >
+          Logout
+        </button>
+      } @else {
+        <a class="auth-button" routerLink="/login">Login</a>
+      }
+    </div>
+  </nav>
+</header>

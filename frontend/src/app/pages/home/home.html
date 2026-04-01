@@ -1,0 +1,74 @@
+<section class="public-topbar">
+  <a class="brand" routerLink="/">Roteiros Sustentáveis</a>
+
+  <div class="public-actions">
+    <a class="login-link" routerLink="/login">Login</a>
+    <a class="register-link" routerLink="/register">Registar</a>
+  </div>
+</section>
+
+<section class="home-page">
+  <section class="hero-section">
+    <div class="hero-text">
+      <p class="eyebrow">Braga e Gerês num só lugar</p>
+
+      <h1>Descobre Braga e o Gerês de forma autêntica</h1>
+
+      <p class="hero-description">
+        Explora roteiros pensados para quem quer conhecer o melhor de Braga e do
+        Gerês com mais calma, contexto e propósito. Guarda os teus favoritos,
+        cria percursos personalizados e descobre locais únicos.
+      </p>
+
+      <div class="hero-actions">
+        <a class="primary-button" routerLink="/routes">Explorar roteiros</a>
+        <a class="secondary-button" routerLink="/register">Começar agora</a>
+      </div>
+    </div>
+
+    <div class="hero-image-card">
+      <img
+        src="https://images.unsplash.com/photo-1604917877934-07d8d248d396?auto=format&fit=crop&w=1200&q=80"
+        alt="Paisagem natural do Gerês"
+      />
+    </div>
+  </section>
+
+  <section class="featured-section">
+    <div class="section-header">
+      <div>
+        <p class="section-eyebrow">Roteiros em destaque</p>
+        <h2>Ideias para começar a explorar</h2>
+      </div>
+    </div>
+
+    <div class="cards-grid">
+      @for (route of featuredRoutes; track route.title) {
+        <article class="route-card">
+          <img [src]="route.image" [alt]="route.title" class="route-card-image" />
+
+          <div class="route-card-content">
+            <p class="route-location">{{ route.subtitle }}</p>
+            <h3>{{ route.title }}</h3>
+            <p class="route-description">{{ route.description }}</p>
+
+            <div class="route-meta">
+              <span>{{ route.duration }}</span>
+              <span>{{ route.difficulty }}</span>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="quote-section">
+    <div class="quote-card">
+      <p class="quote-icon">✦</p>
+      <blockquote>
+        “Explorar não é só visitar — é perceber, respeitar e viver cada lugar.”
+      </blockquote>
+      <p class="quote-author">Roteiros Sustentáveis</p>
+    </div>
+  </section>
+</section>

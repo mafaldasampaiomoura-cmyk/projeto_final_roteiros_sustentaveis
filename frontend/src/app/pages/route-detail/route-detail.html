@@ -1,0 +1,81 @@
+<app-navbar></app-navbar>
+
+<section class="route-detail-page">
+  @if (route !== null) {
+    <div class="route-detail-card">
+      @if (route?.image_url) {
+        <img
+          [src]="route.image_url"
+          [alt]="route.titulo"
+          class="route-image"
+        />
+      }
+
+      <p class="detail-label">Roteiro</p>
+
+      <h1>{{ route.titulo }}</h1>
+      <p class="route-description">{{ route.descricao }}</p>
+
+      <div class="route-meta">
+        @if (route?.cidade?.trim()) {
+          <span>{{ route.cidade }}</span>
+        }
+
+        @if (route?.duracao?.trim()) {
+          <span>{{ route.duracao }}</span>
+        }
+
+        @if (route?.dificuldade?.trim()) {
+          <span>{{ route.dificuldade }}</span>
+        }
+
+        @if (route?.categoria?.trim()) {
+          <span>{{ route.categoria }}</span>
+        }
+      </div>
+
+      <div class="detail-actions">
+        <button type="button" (click)="addToFavorites()">Adicionar aos favoritos</button>
+
+        @if (isOwner) {
+          <button [routerLink]="['/routes/edit', route.id]">Editar roteiro</button>
+          <button type="button" (click)="deleteRoute()">Eliminar roteiro</button>
+        }
+      </div>
+    </div>
+
+    <section class="route-points">
+      <h2>Pontos do roteiro</h2>
+
+      @if (route.points && route.points.length > 0) {
+        <div class="points-list">
+          @for (point of route.points; track point.id) {
+            <div class="point-card">
+              <div class="point-order">Ponto {{ point.ordem }}</div>
+              <h3>{{ point.nome }}</h3>
+              <p>{{ point.descricao }}</p>
+              <p class="point-address">
+                <strong>Localização:</strong> {{ point.morada }}
+              </p>
+
+              @if (point.morada) {
+                <a
+                  class="maps-link"
+                  [href]="getGoogleMapsLink(point.morada)"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Ver no Google Maps
+                </a>
+              }
+            </div>
+          }
+        </div>
+      } @else {
+        <p class="empty-message">Este roteiro ainda não tem pontos.</p>
+      }
+    </section>
+  } @else {
+    <p class="loading-message">A carregar roteiro...</p>
+  }
+</section>
