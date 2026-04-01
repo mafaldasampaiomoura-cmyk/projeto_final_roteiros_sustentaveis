@@ -10,26 +10,25 @@
 <section class="home-page">
   <section class="hero-section">
     <div class="hero-text">
-      <p class="eyebrow">Braga e Gerês num só lugar</p>
+      <p class="eyebrow">Sustentabilidade por ti e por nós!</p>
 
-      <h1>Descobre Braga e o Gerês de forma autêntica</h1>
+      <h1>Prepara os teus itinerários e descobre o que temos para ti!</h1>
 
       <p class="hero-description">
-        Explora roteiros pensados para quem quer conhecer o melhor de Braga e do
-        Gerês com mais calma, contexto e propósito. Guarda os teus favoritos,
-        cria percursos personalizados e descobre locais únicos.
+        Explora roteiros pensados para quem quer conhecer o melhor de Braga e Lisboa
+        com mais calma, contexto e propósito. Guarda os teus favoritos, cria percursos
+        personalizados e descobre locais únicos, tudo a pensar na sustentabilidade local.
       </p>
 
       <div class="hero-actions">
-        <a class="primary-button" routerLink="/routes">Explorar roteiros</a>
         <a class="secondary-button" routerLink="/register">Começar agora</a>
       </div>
     </div>
 
     <div class="hero-image-card">
       <img
-        src="https://images.unsplash.com/photo-1604917877934-07d8d248d396?auto=format&fit=crop&w=1200&q=80"
-        alt="Paisagem natural do Gerês"
+        src="https://images.unsplash.com/photo-1693580759775-319125e2ebd4?q=80&w=633&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        alt="Paisagem urbana sustentável"
       />
     </div>
   </section>
@@ -43,22 +42,49 @@
     </div>
 
     <div class="cards-grid">
-      @for (route of featuredRoutes; track route.title) {
-        <article class="route-card">
-          <img [src]="route.image" [alt]="route.title" class="route-card-image" />
+      <article class="route-card">
+        <img
+          src="https://images.unsplash.com/photo-1686828037415-f5f7a7a189e3?q=80&w=736&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="Braga"
+          class="route-card-image"
+        />
 
-          <div class="route-card-content">
-            <p class="route-location">{{ route.subtitle }}</p>
-            <h3>{{ route.title }}</h3>
-            <p class="route-description">{{ route.description }}</p>
+        <div class="route-card-content">
+          <p class="route-location">BRAGA</p>
+          <h3>Conhecer Braga</h3>
+          <p class="route-description">
+            Descobre pontos históricos, jardins e locais culturais numa experiência
+            sustentável pela cidade.
+          </p>
 
-            <div class="route-meta">
-              <span>{{ route.duration }}</span>
-              <span>{{ route.difficulty }}</span>
-            </div>
+          <div class="route-meta">
+            <span>2 horas</span>
+            <span>Fácil</span>
           </div>
-        </article>
-      }
+        </div>
+      </article>
+
+      <article class="route-card">
+        <img
+          src="https://images.unsplash.com/photo-1588535684923-900727736ac0?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="Lisboa"
+          class="route-card-image"
+        />
+
+        <div class="route-card-content">
+          <p class="route-location">LISBOA</p>
+          <h3>Descobrir Lisboa</h3>
+          <p class="route-description">
+            Um roteiro pensado para explorar a cidade com calma, autenticidade e foco
+            nos locais mais marcantes.
+          </p>
+
+          <div class="route-meta">
+            <span>3 horas</span>
+            <span>Média</span>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
