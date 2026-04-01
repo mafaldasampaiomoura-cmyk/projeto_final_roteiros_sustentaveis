@@ -69,7 +69,7 @@
 }
 
 .points-section {
-  margin-top: 28px;
+  margin-top: 10px;
   display: grid;
   gap: 16px;
 }
@@ -107,17 +107,6 @@
   margin: 0;
   font-size: 18px;
   color: #1b4332;
-}
-
-.point-text {
-  margin: 0;
-  padding: 12px 14px;
-  border: 1px solid #d1d5db;
-  border-radius: 12px;
-  background: #ffffff;
-  color: #111827;
-  min-height: 24px;
-  line-height: 1.5;
 }
 
 button {
@@ -167,6 +156,10 @@ button:hover {
 }
 
 @media (max-width: 640px) {
+  .create-route-page {
+    padding: 20px 14px 36px;
+  }
+
   .create-route-card {
     padding: 20px;
     border-radius: 16px;
@@ -184,6 +177,10 @@ button:hover {
   .point-card-top {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .points-header h2 {
+    font-size: 20px;
   }
 
   .form-group input,

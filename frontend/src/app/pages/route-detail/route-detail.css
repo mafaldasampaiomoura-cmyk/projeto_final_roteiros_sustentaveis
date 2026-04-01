@@ -1,16 +1,7 @@
 .route-detail-page {
   max-width: 1100px;
-  margin: 40px auto;
+  margin: 32px auto;
   padding: 0 24px 48px;
-}
-
-.route-image {
-  width: 100%;
-  height: 340px;
-  object-fit: cover;
-  border-radius: 20px;
-  margin-bottom: 24px;
-  display: block;
 }
 
 .route-detail-card {
@@ -20,6 +11,15 @@
   padding: 32px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
   margin-bottom: 32px;
+}
+
+.route-image {
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin-bottom: 24px;
+  display: block;
 }
 
 .detail-label {
@@ -35,14 +35,14 @@
   font-size: 40px;
   line-height: 1.1;
   color: #1f2937;
-  margin-bottom: 16px;
+  margin: 0 0 16px;
 }
 
 .route-description {
   font-size: 18px;
   line-height: 1.6;
   color: #4b5563;
-  margin-bottom: 24px;
+  margin: 0 0 24px;
 }
 
 .route-meta {
@@ -59,16 +59,6 @@
   border-radius: 999px;
   font-weight: 600;
   border: 1px solid #b7ebc6;
-}
-
-.meta-badge {
-  background: #ecfdf5;
-  color: #166534;
-  border: 1px solid #bbf7d0;
-  border-radius: 999px;
-  padding: 8px 14px;
-  font-size: 14px;
-  font-weight: 600;
 }
 
 .detail-actions {
@@ -150,7 +140,7 @@
 .point-card h3 {
   font-size: 22px;
   color: #1f2937;
-  margin-bottom: 10px;
+  margin: 0 0 10px;
 }
 
 .point-card p {
@@ -180,4 +170,110 @@
 .loading-message {
   font-size: 18px;
   color: #6b7280;
+}
+
+@media (max-width: 900px) {
+  .route-detail-page {
+    margin: 24px auto;
+    padding: 0 16px 40px;
+  }
+
+  .route-detail-card {
+    padding: 24px;
+  }
+
+  .route-image {
+    height: 280px;
+    border-radius: 16px;
+  }
+
+  .route-detail-card h1 {
+    font-size: 34px;
+  }
+
+  .route-description {
+    font-size: 17px;
+  }
+
+  .route-points h2 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .route-detail-page {
+    margin: 20px auto;
+    padding: 0 14px 36px;
+  }
+
+  .route-detail-card {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .route-image {
+    height: 220px;
+    border-radius: 14px;
+    margin-bottom: 18px;
+  }
+
+  .detail-label {
+    font-size: 12px;
+  }
+
+  .route-detail-card h1 {
+    font-size: 28px;
+  }
+
+  .route-description {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .route-meta {
+    gap: 10px;
+    margin: 20px 0;
+  }
+
+  .route-meta span {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .detail-actions {
+    flex-direction: column;
+  }
+
+  .detail-actions a,
+  .detail-actions button {
+    width: 100%;
+  }
+
+  .route-points h2 {
+    font-size: 22px;
+  }
+
+  .points-list {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .point-card {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .point-card h3 {
+    font-size: 20px;
+  }
+
+  .point-card p,
+  .maps-link {
+    font-size: 14px;
+  }
+
+  .empty-message,
+  .loading-message {
+    font-size: 16px;
+  }
 }

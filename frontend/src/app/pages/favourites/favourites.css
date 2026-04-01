@@ -20,6 +20,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
+  align-items: start;
 }
 
 .route-card {
@@ -30,7 +31,6 @@
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   overflow: hidden;
 }
 
@@ -54,7 +54,10 @@
   margin: 0 0 16px;
   color: #4b5563;
   line-height: 1.6;
-  flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .route-meta {
@@ -77,7 +80,7 @@
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  margin-top: 8px;
+  margin-top: auto;
 }
 
 .detail-link {
@@ -95,6 +98,7 @@
   opacity: 0.95;
 }
 
+.remove-btn,
 .actions button {
   border: 1px solid #ef4444;
   background: #ffffff;
@@ -106,6 +110,7 @@
   transition: 0.2s ease;
 }
 
+.remove-btn:hover,
 .actions button:hover {
   background: #fef2f2;
 }
@@ -116,30 +121,78 @@
   font-size: 16px;
 }
 
-.actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: auto;
+@media (max-width: 900px) {
+  .routes-page {
+    padding: 24px 16px 40px;
+  }
+
+  .routes-page h1 {
+    font-size: 28px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+  }
+
+  .routes-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  .route-description {
+    -webkit-line-clamp: 3;
+  }
 }
 
-.remove-btn {
-  border: 1px solid #ef4444;
-  background: #ffffff;
-  color: #dc2626;
-  padding: 10px 16px;
-  border-radius: 12px;
-  font-weight: 700;
-  cursor: pointer;
-}
+@media (max-width: 640px) {
+  .routes-page {
+    padding: 20px 14px 36px;
+  }
 
-.remove-btn:hover {
-  background: #fef2f2;
-}
+  .routes-page h1 {
+    font-size: 24px;
+  }
 
-.routes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  align-items: start;
+  .subtitle {
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  .routes-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .route-card {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .route-card-image {
+    height: 170px;
+    border-radius: 10px;
+  }
+
+  .route-card h2 {
+    font-size: 20px;
+  }
+
+  .route-description {
+    font-size: 14px;
+    -webkit-line-clamp: 3;
+  }
+
+  .route-meta span {
+    font-size: 13px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .detail-link,
+  .remove-btn,
+  .actions button {
+    width: 100%;
+    text-align: center;
+  }
 }

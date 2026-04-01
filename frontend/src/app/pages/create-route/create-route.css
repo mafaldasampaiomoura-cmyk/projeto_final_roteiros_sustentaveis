@@ -54,6 +54,7 @@
   font-size: 15px;
   outline: none;
   background: #ffffff;
+  box-sizing: border-box;
 }
 
 .form-group input:focus,
@@ -140,7 +141,6 @@ button:hover {
   background: #b91c1c;
 }
 
-/* Tablet */
 @media (max-width: 900px) {
   .create-route-page {
     padding: 24px 16px 40px;
@@ -155,8 +155,11 @@ button:hover {
   }
 }
 
-/* Mobile */
 @media (max-width: 640px) {
+  .create-route-page {
+    padding: 20px 14px 36px;
+  }
+
   .create-route-card {
     padding: 20px;
     border-radius: 16px;
@@ -174,6 +177,10 @@ button:hover {
   .point-card-top {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .points-header h2 {
+    font-size: 20px;
   }
 
   .form-group input,
