@@ -10,13 +10,30 @@
     <div class="routes-grid">
       @for (favorite of favourites; track favorite.id) {
         <div class="route-card">
+
+          @if (favorite.routes?.image_url) {
+            <img
+              [src]="favorite.routes?.image_url"
+              [alt]="favorite.routes?.titulo"
+              class="route-card-image"
+            />
+          }
+
           <h2>{{ favorite.routes?.titulo }}</h2>
           <p class="route-description">{{ favorite.routes?.descricao }}</p>
 
           <div class="route-meta">
-            <span>{{ favorite.routes?.cidade }}</span>
-            <span>{{ favorite.routes?.duracao }}</span>
-            <span>{{ favorite.routes?.dificuldade }}</span>
+            @if (favorite.routes?.cidade) {
+              <span>{{ favorite.routes?.cidade }}</span>
+            }
+
+            @if (favorite.routes?.duracao) {
+              <span>{{ favorite.routes?.duracao }}</span>
+            }
+
+            @if (favorite.routes?.dificuldade) {
+              <span>{{ favorite.routes?.dificuldade }}</span>
+            }
           </div>
 
           <div class="actions">
@@ -24,7 +41,11 @@
               Ver detalhe
             </a>
 
-            <button type="button" (click)="removeFavorite(favorite.route_id)">
+            <button
+              type="button"
+              class="remove-btn"
+              (click)="removeFavorite(favorite.route_id)"
+            >
               Remover favorito
             </button>
           </div>

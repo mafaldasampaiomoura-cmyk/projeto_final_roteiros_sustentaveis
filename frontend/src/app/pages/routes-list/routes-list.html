@@ -10,13 +10,28 @@
     <div class="routes-grid">
       @for (route of routesList; track route.id) {
         <div class="route-card">
+
+          @if (route.image_url) {
+            <img
+              [src]="route.image_url"
+              [alt]="route.titulo"
+              class="route-card-image"
+            />
+          }
+
           <h2>{{ route.titulo }}</h2>
           <p class="route-description">{{ route.descricao }}</p>
 
           <div class="route-meta">
             <span>{{ route.cidade }}</span>
-            <span>{{ route.duracao }}</span>
-            <span>{{ route.dificuldade }}</span>
+
+            @if (route.duracao) {
+              <span>{{ route.duracao }}</span>
+            }
+
+            @if (route.dificuldade) {
+              <span>{{ route.dificuldade }}</span>
+            }
           </div>
 
           <a class="detail-link" [routerLink]="['/routes', route.id]">

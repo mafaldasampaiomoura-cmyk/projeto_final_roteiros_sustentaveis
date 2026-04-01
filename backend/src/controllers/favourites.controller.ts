@@ -14,7 +14,10 @@ export const listFavourites = async (_req: Request, res: Response) => {
         id,
         titulo,
         descricao,
-        dificuldade
+        cidade, 
+        duracao,
+        dificuldade,
+        image_url
       )
     `)
     .eq('user_id', user.id)

@@ -40,7 +40,12 @@ export class RoutesList implements OnInit, OnDestroy {
     this.routesService.getRoutes().subscribe({
       next: (data: any) => {
         console.log('ROUTES RESPONSE:', data);
+
         this.routesList = data.data || data.routes || data || [];
+
+        console.log('PRIMEIRO ROUTE:', this.routesList[0]);
+        console.log('IMAGE URL:', this.routesList[0]?.image_url);
+
         this.loading = false;
         this.cdr.detectChanges();
       },

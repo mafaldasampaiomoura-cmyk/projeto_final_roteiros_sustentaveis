@@ -20,6 +20,7 @@ export class CreateRoute {
     duracao: '',
     dificuldade: '',
     categoria: '',
+    image_url: '',
   };
 
   points = [
@@ -67,6 +68,7 @@ export class CreateRoute {
       duracao: this.route.duracao,
       dificuldade: this.route.dificuldade,
       categoria: this.route.categoria,
+      image_url: this.route.image_url.trim(),
     };
 
     const validPoints = this.points

@@ -41,6 +41,10 @@ export class Favourites implements OnInit, OnDestroy {
       next: (response: any) => {
         console.log('FAVOURITES RESPONSE:', response);
         this.favourites = response.favourites || response.data || [];
+
+        console.log('PRIMEIRO FAVORITO:', this.favourites[0]);
+        console.log('IMAGE URL FAVORITO:', this.favourites[0]?.routes?.image_url);
+
         this.loading = false;
         this.cdr.detectChanges();
       },

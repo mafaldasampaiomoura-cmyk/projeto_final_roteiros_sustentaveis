@@ -47,6 +47,7 @@
   border-radius: 12px;
   font-size: 15px;
   outline: none;
+  box-sizing: border-box;
 }
 
 .form-group input:focus {
@@ -81,4 +82,71 @@ button:hover {
   color: #166534;
   font-size: 14px;
   font-weight: 600;
+}
+
+.back-home {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: #2e7d32;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.back-home:hover {
+  text-decoration: underline;
+}
+
+.auth-switch {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.auth-switch a {
+  color: #2e7d32;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .login-page {
+    padding: 24px 16px;
+  }
+
+  .login-card {
+    padding: 24px;
+  }
+
+  .login-card h1 {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 640px) {
+  .login-page {
+    padding: 20px 14px;
+  }
+
+  .login-card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .login-card h1 {
+    font-size: 24px;
+  }
+
+  .login-card p,
+  .auth-switch,
+  .back-home {
+    font-size: 14px;
+  }
+
+  .form-group input,
+  button {
+    font-size: 14px;
+  }
 }
