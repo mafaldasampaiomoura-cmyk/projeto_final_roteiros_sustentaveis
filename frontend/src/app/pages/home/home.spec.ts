@@ -1,22 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { describe, it, expect } from 'vitest';
 import { Home } from './home';
 
 describe('Home', () => {
-  let component: Home;
-  let fixture: ComponentFixture<Home>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [Home],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(Home);
-    component = fixture.componentInstance;
-    await fixture.whenStable();
+  it('should create the component', () => {
+    const component = new Home();
+    expect(component).toBeTruthy();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should have featured routes', () => {
+    const component = new Home();
+
+    expect(component.featuredRoutes.length).toBeGreaterThan(0);
+    expect(component.featuredRoutes[0]).toHaveProperty('title');
+    expect(component.featuredRoutes[0]).toHaveProperty('image');
   });
 });
