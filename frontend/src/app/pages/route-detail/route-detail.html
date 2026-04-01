@@ -17,10 +17,21 @@
       <p class="route-description">{{ route.descricao }}</p>
 
       <div class="route-meta">
-        <span class="meta-badge">{{ route.cidade }}</span>
-        <span class="meta-badge">{{ route.duracao }}</span>
-        <span class="meta-badge">{{ route.dificuldade }}</span>
-        <span class="meta-badge">{{ route.categoria }}</span>
+        @if (route?.cidade?.trim()) {
+          <span>{{ route.cidade }}</span>
+        }
+
+        @if (route?.duracao?.trim()) {
+          <span>{{ route.duracao }}</span>
+        }
+
+        @if (route?.dificuldade?.trim()) {
+          <span>{{ route.dificuldade }}</span>
+        }
+
+        @if (route?.categoria?.trim()) {
+          <span>{{ route.categoria }}</span>
+        }
       </div>
 
       <div class="detail-actions">

@@ -48,8 +48,17 @@
 .route-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 24px;
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.route-meta span {
+  background: #e9f8ee;
+  color: #166534;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  border: 1px solid #b7ebc6;
 }
 
 .meta-badge {
